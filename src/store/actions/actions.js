@@ -14,6 +14,13 @@ export const OPEN = "OPEN";
 export const CLOSE = "CLOSE";
 export const HSK_4 = "HSK_4";
 export const HSK_3 = "HSK_3";
+export const USER_NAME = "USER_NAME";
+export const EMAIL = "EMAIL";
+export const PASSWORD = "PASSWORD";
+export const AUTH = "AUTH";
+export const CHECK_AUTH = "CHECK_AUTH";
+export const LOG_NAME = "LOG_NAME";
+export const LOG_PASSWORD = "LOG_PASSWORD";
 
 export const postResult = (
   e,
@@ -52,6 +59,15 @@ export const save = (words) => {
   };
 };
 
+export const saveAuth = (token, userId) => {
+  return {
+    type: AUTH,
+    isAuth: true,
+    token: token,
+    userId: userId,
+  };
+};
+
 export const saveWords = () => {
   return (dispatch) => {
     axios
@@ -62,5 +78,43 @@ export const saveWords = () => {
 export const addToLearn = (id) => {
   return (dispatch) => {
     axios.post(`http://localhost:5004/admin/add-cart/${id}`);
+  };
+};
+
+export const signup = (e, username, email, password) => {
+  e.preventDefault();
+  let data = {
+    username: username,
+    email: email,
+    password: password,
+  };
+  return (dispatch) => {
+    axios.put("http://localhost:5004/user/signup", data).then((res) => {
+      dispatch(saveAuth(res.data.token, res.data.userId));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", res.data.userId);
+      const remainingMilliseconds = 60 * 60 * 1000;
+      const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
+      localStorage.setItem("expiryDate", expiryDate.toISOString());
+    });
+  };
+};
+
+export const login = (e, logName, logPassword) => {
+  e.preventDefault();
+  let data = {
+    username: logName,
+    password: logPassword,
+  };
+  return (dispatch) => {
+    axios.post("http://localhost:5004/user/login", data).then((res) => {
+      console.log(res);
+      dispatch(saveAuth(res.data.token, res.data.id));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", res.data.id);
+      const remainingMilliseconds = 60 * 60 * 1000;
+      const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
+      localStorage.setItem("expiryDate", expiryDate.toISOString());
+    });
   };
 };

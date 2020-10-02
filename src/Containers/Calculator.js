@@ -11,10 +11,9 @@ import * as actionCreators from "../store/actions/actions";
 import Button from "@material-ui/core/Button";
 
 class Join extends Component {
-  fileSelectedHandler = (event) => {
-    let file = event.target.files[0];
-    this.setState({ image: file });
-  };
+  // fileSelectedHandler = (event) => {
+  //   let file = event.target.files[0];
+  // };
   render() {
     return (
       <div>

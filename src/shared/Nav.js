@@ -7,6 +7,9 @@ const NavLinks = (props) => {
       <NavLink to="/converter" exact>
         HSK4
       </NavLink>
+      <NavLink to="/signup" exact>
+        Sign up
+      </NavLink>
       <NavLink to="/converter/3" exact>
         HSK3
       </NavLink>

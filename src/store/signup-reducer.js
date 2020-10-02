@@ -1,0 +1,46 @@
+import * as actiontype from "./actions/actions";
+
+const initialState = {
+  username: "",
+  email: "",
+  password: "",
+  isAuth: false,
+  token: undefined,
+  userId: undefined,
+};
+const signupreducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actiontype.USER_NAME:
+      return {
+        ...state,
+        username: action.username,
+      };
+    case actiontype.EMAIL:
+      return {
+        ...state,
+        email: action.email,
+      };
+    case actiontype.PASSWORD:
+      return {
+        ...state,
+        password: action.password,
+      };
+    case actiontype.AUTH:
+      return {
+        ...state,
+        isAuth: action.isAuth,
+        token: action.token,
+        userId: action.userId,
+      };
+    case actiontype.CHECK_AUTH:
+      return {
+        ...state,
+        token: action.token,
+        userId: action.id,
+        isAuth: true,
+      };
+  }
+  return state;
+};
+
+export default signupreducer;
