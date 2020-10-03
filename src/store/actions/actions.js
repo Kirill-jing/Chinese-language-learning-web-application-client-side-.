@@ -21,6 +21,7 @@ export const AUTH = "AUTH";
 export const CHECK_AUTH = "CHECK_AUTH";
 export const LOG_NAME = "LOG_NAME";
 export const LOG_PASSWORD = "LOG_PASSWORD";
+export const STORE_CART = "STORE_CART";
 
 export const postResult = (
   e,
@@ -68,6 +69,13 @@ export const saveAuth = (token, userId) => {
   };
 };
 
+export const saveMyWords = (cart) => {
+  return {
+    type: STORE_CART,
+    cart: cart,
+  };
+};
+
 export const saveWords = () => {
   return (dispatch) => {
     axios
@@ -75,9 +83,17 @@ export const saveWords = () => {
       .then((words) => dispatch(save(words.data.words)));
   };
 };
-export const addToLearn = (id) => {
+
+export const addToLearn = (id, token) => {
+  let data = null;
+  console.log(id);
   return (dispatch) => {
-    axios.post(`http://localhost:5004/admin/add-cart/${id}`);
+    console.log(token);
+    axios.post(`http://localhost:5004/admin/add-cart/${id}`, data, {
+      headers: {
+        Authorization: "bearer " + token,
+      },
+    });
   };
 };
 
@@ -108,7 +124,6 @@ export const login = (e, logName, logPassword) => {
   };
   return (dispatch) => {
     axios.post("http://localhost:5004/user/login", data).then((res) => {
-      console.log(res);
       dispatch(saveAuth(res.data.token, res.data.id));
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.id);
@@ -116,5 +131,17 @@ export const login = (e, logName, logPassword) => {
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem("expiryDate", expiryDate.toISOString());
     });
+  };
+};
+
+export const saveCart = (token) => {
+  return (dispatch) => {
+    axios
+      .get("http://localhost:5004/admin/get-cart", {
+        headers: {
+          Authorization: "bearer " + token,
+        },
+      })
+      .then((cart) => dispatch(saveMyWords(cart.data.cart)));
   };
 };

@@ -16,6 +16,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import * as actionCreators from "../store/actions/actions";
+import { SignalCellularNullSharp } from "@material-ui/icons";
 
 const Ul = style.ul`
 list-style-type:none;
@@ -34,42 +35,53 @@ width:200px;
 border:1px solid black;
 `;
 
-class Chat extends Component {
-  componentDidMount() {
-    this.props.onStoreWord();
+class Cart extends Component {
+  shouldComponentUpdate() {
+    if (this.props.cartData.length > 0) {
+      return false;
+    } else if (this.props.cartData.length == 0) {
+      return true;
+    }
+  }
+  componentDidUpdate() {
+    this.props.onStoreCart(this.props.token);
   }
 
   render() {
-    console.log(this.props.location);
     return (
       <div>
-        <Ul>
-          <li>
-            {this.props.hskdata.map((word) => {
-              return (
-                <Word
-                  key={word._id}
-                  name={word.name}
-                  nameTr={word.nameTr}
-                  pinin={word.pinin}
-                  example={word.example}
-                  exampleTr={word.exampleTr}
-                  examplePinin={word.examplePinin}
-                  type={word.type}
-                  image={"http://localhost:5004/" + word.image}
-                  audio={"http://localhost:5004/" + word.audio}
-                  details={this.props.details}
-                  openModal={() => this.props.open(word._id)}
-                  closeModal={this.props.close}
-                  addToLearn={() =>
-                    this.props.addToLearn(word._id, this.props.token)
-                  }
-                />
-              );
-            })}
-          </li>
-        </Ul>
-        <div>
+        <p>sdfwfwsfwdfwsfsdf</p>
+        {this.props.cartData !== undefined ? (
+          <Ul>
+            <li>
+              {this.props.cartData.map((word) => {
+                console.log(word.name);
+                return (
+                  <Word
+                    key={word._id}
+                    name={word.name}
+                    nameTr={word.nameTr}
+                    pinin={word.pinin}
+                    example={word.example}
+                    exampleTr={word.exampleTr}
+                    examplePinin={word.examplePinin}
+                    type={word.type}
+                    image={"http://localhost:5004/" + word.image}
+                    audio={"http://localhost:5004/" + word.audio}
+                    // details={this.props.details}
+                    // openModal={() => this.props.open(word._id)}
+                    // closeModal={this.props.close}
+                    // addToLearn={() =>
+                    //   this.props.addToLearn(word._id, this.props.token)
+                    // }
+                  />
+                );
+              })}
+            </li>
+          </Ul>
+        ) : null}
+
+        {/* <div>
           <StyledDiv>
             <Link onClick={this.props.hsk4} to="/converter" exact>
               HSK4
@@ -80,8 +92,8 @@ class Chat extends Component {
               HSK3
             </Link>
           </StyledDiv>
-        </div>
-        <Modal
+        </div> */}
+        {/* <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           open={this.props.details}
@@ -107,29 +119,25 @@ class Chat extends Component {
               audio={"http://localhost:5004/" + this.props.modalWord.audio}
             />
           </Fade>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.cart.cartData);
   return {
-    stored: state.res.data,
     details: state.res.details,
     modalWord: state.res.modalWord,
-    hskdata: state.res.hskdata,
+    cartData: state.cart.cartData,
     token: state.sign.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToLearn: (id, token) => dispatch(actionCreators.addToLearn(id, token)),
-    onStoreWord: (words) => dispatch(actionCreators.saveWords(words)),
-    open: (id) => dispatch({ type: "OPEN", id: id }),
-    close: () => dispatch({ type: "CLOSE" }),
-    hsk4: () => dispatch({ type: "HSK_4" }),
-    hsk3: () => dispatch({ type: "HSK_3" }),
+    onStoreCart: (token, cart) =>
+      dispatch(actionCreators.saveCart(token, cart)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
