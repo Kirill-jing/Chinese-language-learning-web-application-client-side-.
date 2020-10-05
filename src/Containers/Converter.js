@@ -3,11 +3,15 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Word from "../Components/word";
 import WordDetails from "../Components/wordDetails";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputLabel from "@material-ui/core/InputLabel";
 import style from "styled-components";
 import { styled } from "@material-ui/core/styles";
@@ -47,24 +51,32 @@ class Chat extends Component {
           <li>
             {this.props.hskdata.map((word) => {
               return (
-                <Word
-                  key={word._id}
-                  name={word.name}
-                  nameTr={word.nameTr}
-                  pinin={word.pinin}
-                  example={word.example}
-                  exampleTr={word.exampleTr}
-                  examplePinin={word.examplePinin}
-                  type={word.type}
-                  image={"http://localhost:5004/" + word.image}
-                  audio={"http://localhost:5004/" + word.audio}
-                  details={this.props.details}
-                  openModal={() => this.props.open(word._id)}
-                  closeModal={this.props.close}
-                  addToLearn={() =>
-                    this.props.addToLearn(word._id, this.props.token)
-                  }
-                />
+                <div>
+                  <Word
+                    key={word._id}
+                    id={word._id}
+                    // checkedVal={this.props.checkedVal}
+                    addCheck={(value, check) =>
+                      this.props.addCheck(value, check)
+                    }
+                    removeCheck={(value) => this.props.removeCheck(value)}
+                    name={word.name}
+                    nameTr={word.nameTr}
+                    pinin={word.pinin}
+                    example={word.example}
+                    exampleTr={word.exampleTr}
+                    examplePinin={word.examplePinin}
+                    type={word.type}
+                    image={"http://localhost:5004/" + word.image}
+                    audio={"http://localhost:5004/" + word.audio}
+                    details={this.props.details}
+                    openModal={() => this.props.open(word._id)}
+                    closeModal={this.props.close}
+                    addToLearn={() =>
+                      this.props.addToLearn(word._id, this.props.token)
+                    }
+                  />
+                </div>
               );
             })}
           </li>
@@ -114,12 +126,14 @@ class Chat extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.res.checkedArr);
   return {
     stored: state.res.data,
     details: state.res.details,
     modalWord: state.res.modalWord,
     hskdata: state.res.hskdata,
     token: state.sign.token,
+    checkedVal: state.res.checkedVal,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -127,6 +141,8 @@ const mapDispatchToProps = (dispatch) => {
     addToLearn: (id, token) => dispatch(actionCreators.addToLearn(id, token)),
     onStoreWord: (words) => dispatch(actionCreators.saveWords(words)),
     open: (id) => dispatch({ type: "OPEN", id: id }),
+    addCheck: (value, check) =>
+      dispatch({ type: "ADD_CHECK", value: value, check: check }),
     close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),
     hsk3: () => dispatch({ type: "HSK_3" }),

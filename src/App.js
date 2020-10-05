@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          {/* <NavLinks /> */}
+          <NavLinks />
           <Switch>
             <Route path="/" exact component={Calculator}></Route>
             <Route path="/signup" exact component={SignUp}></Route>

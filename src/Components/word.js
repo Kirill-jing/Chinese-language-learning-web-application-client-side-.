@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import Button from "@material-ui/core/Button";
 import style from "styled-components";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AddIcon from "@material-ui/icons/Add";
 import { styled } from "@material-ui/core/styles";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const DetailsHov = style.div`
 cursor:pointer;
@@ -54,7 +55,12 @@ let word = (props) => {
   let audio = new Audio(props.audio);
   return (
     <CustFlex>
+      <Checkbox
+        value={props.id}
+        onChange={(e) => props.addCheck(e.target.value, e.target.checked)}
+      ></Checkbox>
       <Button onClick={() => audio.play()}>
+        {" "}
         <CustomIcon />
       </Button>
       <DetailsHov onClick={(id) => props.openModal(id)}>

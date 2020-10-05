@@ -1,9 +1,12 @@
+import { TramRounded } from "@material-ui/icons";
 import * as actiontype from "./actions/actions";
 const initialState = {
   data: [],
   details: false,
   modalWord: {},
   hskdata: [],
+  checkedVal: false,
+  checkedArr: [],
 };
 const asyncreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,6 +14,20 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.words,
+      };
+    case actiontype.ADD_CHECK:
+      let newArr = state.checkedArr;
+      newArr.push(action.value);
+      if (action.check === true) {
+        return {
+          ...state,
+          checkedArr: newArr,
+        };
+      }
+      let jArr = state.checkedArr.filter((el) => el != action.value);
+      return {
+        ...state,
+        checkedArr: jArr,
       };
 
     case actiontype.OPEN:

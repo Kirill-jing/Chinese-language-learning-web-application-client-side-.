@@ -22,6 +22,8 @@ export const CHECK_AUTH = "CHECK_AUTH";
 export const LOG_NAME = "LOG_NAME";
 export const LOG_PASSWORD = "LOG_PASSWORD";
 export const STORE_CART = "STORE_CART";
+export const ADD_CHECK = "ADD_CHECK";
+export const REMOVE_CHECK = "REMOVE_CHECK";
 
 export const postResult = (
   e,
