@@ -91,6 +91,13 @@ class Chat extends Component {
             <Link onClick={this.props.hsk3} to="/converter/3" exact>
               HSK3
             </Link>
+            <button
+              onClick={(e) =>
+                this.props.addMultiple(this.props.checkedArr, this.props.token)
+              }
+            >
+              uyjyu6j6yuj
+            </button>
           </StyledDiv>
         </div>
         <Modal
@@ -134,10 +141,13 @@ const mapStateToProps = (state) => {
     hskdata: state.res.hskdata,
     token: state.sign.token,
     checkedVal: state.res.checkedVal,
+    checkedArr: state.res.checkedArr,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    addMultiple: (checkedArr, token) =>
+      dispatch(actionCreators.addToCart(checkedArr, token)),
     addToLearn: (id, token) => dispatch(actionCreators.addToLearn(id, token)),
     onStoreWord: (words) => dispatch(actionCreators.saveWords(words)),
     open: (id) => dispatch({ type: "OPEN", id: id }),

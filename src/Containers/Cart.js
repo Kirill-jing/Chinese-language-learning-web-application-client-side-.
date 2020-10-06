@@ -68,12 +68,12 @@ class Cart extends Component {
                     type={word.type}
                     image={"http://localhost:5004/" + word.image}
                     audio={"http://localhost:5004/" + word.audio}
-                    // details={this.props.details}
-                    // openModal={() => this.props.open(word._id)}
-                    // closeModal={this.props.close}
-                    // addToLearn={() =>
-                    //   this.props.addToLearn(word._id, this.props.token)
-                    // }
+                    details={this.props.details}
+                    openModal={() => this.props.open(word._id)}
+                    closeModal={this.props.close}
+                    addToLearn={() =>
+                      this.props.addToLearn(word._id, this.props.token)
+                    }
                   />
                 );
               })}
@@ -81,7 +81,7 @@ class Cart extends Component {
           </Ul>
         ) : null}
 
-        {/* <div>
+        <div>
           <StyledDiv>
             <Link onClick={this.props.hsk4} to="/converter" exact>
               HSK4
@@ -92,8 +92,8 @@ class Cart extends Component {
               HSK3
             </Link>
           </StyledDiv>
-        </div> */}
-        {/* <Modal
+        </div>
+        <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           open={this.props.details}
@@ -119,7 +119,7 @@ class Cart extends Component {
               audio={"http://localhost:5004/" + this.props.modalWord.audio}
             />
           </Fade>
-        </Modal> */}
+        </Modal>
       </div>
     );
   }

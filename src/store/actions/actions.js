@@ -147,3 +147,16 @@ export const saveCart = (token) => {
       .then((cart) => dispatch(saveMyWords(cart.data.cart)));
   };
 };
+
+export const addToCart = (checkedArr, token) => {
+  let data = {
+    checkedArr: checkedArr,
+  };
+  return (dispatch) => {
+    axios.post("http://localhost:5004/admin//multiple-words", data, {
+      headers: {
+        Authorization: "bearer " + token,
+      },
+    });
+  };
+};
