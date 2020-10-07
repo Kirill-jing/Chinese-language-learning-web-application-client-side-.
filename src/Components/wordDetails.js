@@ -26,7 +26,6 @@ color:red;
 `;
 const FootDiv = style.div`
 text-align:center;
-
 `;
 
 const HigherDiv = style.div`

@@ -7,6 +7,7 @@ const initialState = {
   isAuth: false,
   token: undefined,
   userId: undefined,
+  sun: false,
 };
 const signupreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -38,6 +39,11 @@ const signupreducer = (state = initialState, action) => {
         token: action.token,
         userId: action.id,
         isAuth: true,
+      };
+    case actiontype.CHANGE_THEME:
+      return {
+        ...state,
+        sun: action.sun,
       };
   }
   return state;

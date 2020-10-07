@@ -12,7 +12,8 @@ const Sun = styled(WbSunnyIcon)({
 });
 
 const Moon = styled(Brightness2Icon)({
-  color: "#0F045D",
+  color: "#E5F2F2 ",
+  border: "0px",
 });
 
 const NavLinks = (props) => {
@@ -24,7 +25,14 @@ const NavLinks = (props) => {
 
   return (
     <div>
-      <Button onClick={toggle}>{sun ? <Sun /> : <Moon />}</Button>
+      <Button
+        onClick={() => {
+          toggle();
+          return props.theme(sun);
+        }}
+      >
+        {sun ? <Sun /> : <Moon />}
+      </Button>
       <NavLink to="/converter" exact>
         HSK4
       </NavLink>

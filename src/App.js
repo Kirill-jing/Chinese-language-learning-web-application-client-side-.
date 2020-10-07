@@ -6,8 +6,19 @@ import Converter from "./Containers/Converter";
 import { connect } from "react-redux";
 import LogIn from "./Containers/LogIn";
 import Cart from "./Containers/Cart";
+import Main from "./Containers/Main";
 import * as actionCreators from "./store/actions/actions";
+import style from "styled-components";
 import NavLinks from "./shared/Nav";
+
+let CustomMain = style.main`
+background-color:${(props) => (props.alt ? "black " : "white ")};
+position:absolute;
+color:${(props) => (props.alt ? "white" : "black")};
+width:100%;
+height:100%;
+`;
+
 class App extends Component {
   componentDidMount() {
     const expiryDate = localStorage.getItem("expiryDate");
@@ -18,21 +29,26 @@ class App extends Component {
     let id = localStorage.getItem("userId");
     this.props.checkAuth(token, id);
   }
+
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <NavLinks />
-          <Switch>
-            <Route path="/" exact component={Calculator}></Route>
-            <Route path="/signup" exact component={SignUp}></Route>
-            <Route path="/cart" exact component={Cart}></Route>
-            <Route path="/login" exact component={LogIn}></Route>
-            <Route path="/converter" exact component={Converter}></Route>
-            <Route path="/converter/3" exact component={Converter}></Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
+      <CustomMain alt={this.props.sun}>
+        <BrowserRouter>
+          <div>
+            <NavLinks theme={(sun) => this.props.theme(sun)} />
+            <Switch>
+              <Route path="/" exact component={Main}></Route>
+              <Route path="/admin" exact component={Calculator}></Route>
+              <Route path="/admin" exact component={Calculator}></Route>
+              <Route path="/signup" exact component={SignUp}></Route>
+              <Route path="/cart" exact component={Cart}></Route>
+              <Route path="/login" exact component={LogIn}></Route>
+              <Route path="/converter" exact component={Converter}></Route>
+              <Route path="/converter/3" exact component={Converter}></Route>
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </CustomMain>
     );
   }
 }
@@ -42,12 +58,14 @@ const mapStateToProps = (state) => {
     isAuth: state.sign.isAuth,
     token: state.sign.token,
     userId: state.sign.userId,
+    sun: state.sign.sun,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     checkAuth: (token, id) =>
       dispatch({ type: "CHECK_AUTH", token: token, id: id }),
+    theme: (sun) => dispatch({ type: "CHANGE_THEME", sun: sun }),
   };
 };
 
