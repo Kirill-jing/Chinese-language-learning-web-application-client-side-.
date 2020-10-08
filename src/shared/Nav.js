@@ -15,7 +15,28 @@ const Moon = styled(Brightness2Icon)({
   color: "#E5F2F2 ",
   border: "0px",
 });
+const CustomNav=style.nav`
+display:flex;
+width:100%;
+font-size:24px;
+justify-content:center;
+align-items:center;
+height:50px;
+background-color:#F00A0D;
 
+`
+const CustomButton=styled(Button)({
+  margin:'0 30px',
+  borderRadius:'50%'
+})
+const CustomLink=style(NavLink)`
+color:#503939;
+  text-decoration:none;
+  margin:0 30px;
+  &.active {
+    text-shadow: 0px 0px 6px #523F40 0 0 1em #523F40 
+  };
+`
 const NavLinks = (props) => {
   const [sun, moon] = useState(true);
 
@@ -24,25 +45,32 @@ const NavLinks = (props) => {
   };
 
   return (
-    <div>
-      <Button
+    <CustomNav>
+      <CustomButton
         onClick={() => {
           toggle();
           return props.theme(sun);
         }}
       >
         {sun ? <Sun /> : <Moon />}
-      </Button>
-      <NavLink to="/converter" exact>
-        HSK4
-      </NavLink>
-      <NavLink to="/signup" exact>
-        Sign up
-      </NavLink>
-      <NavLink to="/converter/3" exact>
-        HSK3
-      </NavLink>
-    </div>
+      </CustomButton>
+      <CustomLink to="/converter" exact>
+        Словарь
+      </CustomLink>
+      <CustomLink to="/signup" exact>
+        Зарегестрироваться
+      </CustomLink>
+      <CustomLink to="/login" exact>
+        Войти
+      </CustomLink>
+      <CustomLink to="/cart" exact>
+        Мои слова 
+      </CustomLink>
+      <CustomLink to="/" exact>
+        Тренировка 
+      </CustomLink>
+
+    </CustomNav>
   );
 };
 export default NavLinks;

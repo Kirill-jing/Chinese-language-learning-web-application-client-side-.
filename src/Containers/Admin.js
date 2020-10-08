@@ -10,10 +10,7 @@ import { NavLink } from "react-router-dom";
 import * as actionCreators from "../store/actions/actions";
 import Button from "@material-ui/core/Button";
 
-class Join extends Component {
-  // fileSelectedHandler = (event) => {
-  //   let file = event.target.files[0];
-  // };
+class Admin extends Component {
   render() {
     return (
       <div>
@@ -152,4 +149,4 @@ const mapDispatchToProps = (dispatch) => {
     audioHandler: (res) => dispatch({ type: "AUDIO", audio: res }),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Join);
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);

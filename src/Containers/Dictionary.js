@@ -38,7 +38,7 @@ width:200px;
 border:1px solid black;
 `;
 
-class Chat extends Component {
+class Dictionary extends Component {
   componentDidMount() {
     this.props.onStoreWord();
   }
@@ -165,4 +165,4 @@ const mapDispatchToProps = (dispatch) => {
     hsk3: () => dispatch({ type: "HSK_3" }),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Dictionary);

@@ -39,19 +39,6 @@ class Cart extends Component {
 componentDidMount(){
   this.props.onStoreCart(this.props.token);
 }
-
-  // shouldComponentUpdate() {
-  //   if (this.props.example !== 0) {
-  //     return false;
-  //   } else if (this.props.example === 0) {
-  //     return true;
-  //   }
-  // }
-  // componentDidUpdate() {
-  //   console.log('dfverg')
-  //   this.props.onStoreCart(this.props.token);
-  // }
-
   render() {
     return (
       <div>
@@ -145,7 +132,6 @@ const mapStateToProps = (state) => {
     details: state.res.details,
     modalWord: state.res.modalWord,
     cartData: state.cart.cartData,
-    example: state.cart.example,
     token: state.sign.token,
   };
 };

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SignUp from "./Containers/SignUp";
-import Calculator from "./Containers/Calculator";
-import Converter from "./Containers/Converter";
+import Admin from "./Containers/Admin";
+import Dictionary from "./Containers/Dictionary";
 import { connect } from "react-redux";
 import LogIn from "./Containers/LogIn";
 import Cart from "./Containers/Cart";
@@ -40,13 +40,12 @@ class App extends Component {
             <NavLinks theme={(sun) => this.props.theme(sun)} />
             <Switch>
               <Route path="/" exact component={Main}></Route>
-              <Route path="/admin" exact component={Calculator}></Route>
-              <Route path="/admin" exact component={Calculator}></Route>
+              <Route path="/admin" exact component={Admin}></Route>
               <Route path="/signup" exact component={SignUp}></Route>
               <Route path="/cart" exact component={Cart}></Route>
               <Route path="/login" exact component={LogIn}></Route>
-              <Route path="/converter" exact component={Converter}></Route>
-              <Route path="/converter/3" exact component={Converter}></Route>
+              <Route path="/dictionary" exact component={Dictionary}></Route>
+              <Route path="/dictionary/3" exact component={Dictionary}></Route>
             </Switch>
           </div>
         </BrowserRouter>

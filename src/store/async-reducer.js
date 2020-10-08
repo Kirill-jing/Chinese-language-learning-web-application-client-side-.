@@ -7,6 +7,7 @@ const initialState = {
   hskdata: [],
   checkedVal: false,
   checkedArr: [],
+  example:0
 };
 const asyncreducer = (state = initialState, action) => {
   switch (action.type) {
