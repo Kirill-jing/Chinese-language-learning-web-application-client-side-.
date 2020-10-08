@@ -43,6 +43,10 @@ class Chat extends Component {
     this.props.onStoreWord();
   }
 
+  componentDidUpdate(){
+    console.log('rfvrf')
+  }
+
   render() {
     console.log(this.props.location);
     return (
@@ -55,7 +59,6 @@ class Chat extends Component {
                   <Word
                     key={word._id}
                     id={word._id}
-                    // checkedVal={this.props.checkedVal}
                     addCheck={(value, check) =>
                       this.props.addCheck(value, check)
                     }
@@ -91,11 +94,15 @@ class Chat extends Component {
             <Link onClick={this.props.hsk3} to="/converter/3" exact>
               HSK3
             </Link>
+            <Link  to="/cart" exact>
+              HSK3
+            </Link>
             <button
               onClick={(e) =>
                 this.props.addMultiple(this.props.checkedArr, this.props.token)
               }
             >
+              
               uyjyu6j6yuj
             </button>
           </StyledDiv>

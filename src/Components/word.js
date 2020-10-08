@@ -6,6 +6,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AddIcon from "@material-ui/icons/Add";
 import { styled } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const DetailsHov = style.div`
 cursor:pointer;
@@ -37,6 +38,12 @@ const CustomIcon = styled(VolumeUpIcon)({
   color: "#8987A0",
   "&:hover": {
     color: "#2412D4 ",
+  },
+});
+const CustomDel = styled(DeleteIcon)({
+  color: "#8987A0",
+  "&:hover": {
+    color: "red ",
   },
 });
 const Add = styled(AddCircleIcon)({
@@ -75,6 +82,14 @@ let word = (props) => {
       <Button onClick={props.addToLearn}>
         <Add fontSize="large" />
       </Button>
+      {props.showDelete ? (
+        <Button onClick={() => { 
+          props.instDelete()
+          
+         return props.delete()}}>
+          <CustomDel />
+        </Button>
+      ) : null}
     </CustFlex>
   );
 };

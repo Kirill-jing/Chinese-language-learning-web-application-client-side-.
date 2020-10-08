@@ -26,11 +26,13 @@ class App extends Component {
     if (!token || !expiryDate) {
       return;
     }
+
     let id = localStorage.getItem("userId");
     this.props.checkAuth(token, id);
   }
 
   render() {
+    console.log(this.props.token)
     return (
       <CustomMain alt={this.props.sun}>
         <BrowserRouter>

@@ -36,26 +36,29 @@ border:1px solid black;
 `;
 
 class Cart extends Component {
-  shouldComponentUpdate() {
-    if (this.props.cartData.length > 0) {
-      return false;
-    } else if (this.props.cartData.length == 0) {
-      return true;
-    }
-  }
-  componentDidUpdate() {
-    this.props.onStoreCart(this.props.token);
-  }
+componentDidMount(){
+  this.props.onStoreCart(this.props.token);
+}
+
+  // shouldComponentUpdate() {
+  //   if (this.props.example !== 0) {
+  //     return false;
+  //   } else if (this.props.example === 0) {
+  //     return true;
+  //   }
+  // }
+  // componentDidUpdate() {
+  //   console.log('dfverg')
+  //   this.props.onStoreCart(this.props.token);
+  // }
 
   render() {
     return (
       <div>
-        <p>sdfwfwsfwdfwsfsdf</p>
         {this.props.cartData !== undefined ? (
           <Ul>
             <li>
               {this.props.cartData.map((word) => {
-                console.log(word.name);
                 return (
                   <Word
                     key={word._id}
@@ -74,6 +77,15 @@ class Cart extends Component {
                     addToLearn={() =>
                       this.props.addToLearn(word._id, this.props.token)
                     }
+                    showDelete={this.props.location.pathname === "/cart"}
+                    delete={() =>
+                      this.props.delete(
+                        this.props.cartData,
+                        this.props.token,
+                        word._id
+                      )
+                    }
+                    instDelete={()=>this.props.instDelete(this.props.cartData,word._id)}
                   />
                 );
               })}
@@ -127,17 +139,25 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => {
   console.log(state.cart.cartData);
+  console.log(state.cart.example);
   return {
+    stored: state.res.data,
     details: state.res.details,
     modalWord: state.res.modalWord,
     cartData: state.cart.cartData,
+    example: state.cart.example,
     token: state.sign.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    delete: (cartData, token, id) =>
+      dispatch(actionCreators.deleteCart(cartData, token, id)),
     onStoreCart: (token, cart) =>
       dispatch(actionCreators.saveCart(token, cart)),
+    hsk4: () => dispatch({ type: "HSK_4" }),
+    hsk3: () => dispatch({ type: "HSK_3" }),
+    instDelete:(cartData,id)=>dispatch({type:'INST_DELETE',cartData:cartData,id:id})
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

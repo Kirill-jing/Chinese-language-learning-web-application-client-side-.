@@ -25,6 +25,9 @@ export const STORE_CART = "STORE_CART";
 export const ADD_CHECK = "ADD_CHECK";
 export const REMOVE_CHECK = "REMOVE_CHECK";
 export const CHANGE_THEME = "CHANGE_THEME";
+export const DELETE_CART = "DELETE_CART";
+export const ADD_DEFAULT = "ADD_DEFAULT";
+export const INST_DELETE="INST_DELETE"
 
 export const postResult = (
   e,
@@ -76,6 +79,13 @@ export const saveMyWords = (cart) => {
   return {
     type: STORE_CART,
     cart: cart,
+  };
+};
+
+export const filterWord = (cartData) => {
+  return {
+    type: DELETE_CART,
+    cartData: cartData,
   };
 };
 
@@ -159,5 +169,18 @@ export const addToCart = (checkedArr, token) => {
         Authorization: "bearer " + token,
       },
     });
+  };
+};
+
+export const deleteCart = (cartData, token, id) => {
+   let newData=cartData.filter(el=>el._id!=id)
+  let data = null;
+  return (dispatch) => {
+    axios
+      .post("http://localhost:5004/admin/delete-word/" + id, data, {
+        headers: {
+          Authorization: "bearer " + token,
+        },
+      }).then(res=>dispatch(filterWord(newData)))
   };
 };
