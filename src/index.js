@@ -8,6 +8,7 @@ import loginreducer from "./store/login-reducer";
 import signupreducer from "./store/signup-reducer";
 import asyncreducer from "./store/async-reducer";
 import cartreducer from "./store/cart-reducer";
+import trainreducer from "./store/train-reducer"
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   sign: signupreducer,
   log: loginreducer,
   cart: cartreducer,
+  train:trainreducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

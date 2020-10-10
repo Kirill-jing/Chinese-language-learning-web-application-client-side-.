@@ -5,6 +5,7 @@ const initialState = {
   details: false,
   modalWord: {},
   hskdata: [],
+  regData:[],
   checkedVal: false,
   checkedArr: [],
   example:0
@@ -16,6 +17,20 @@ const asyncreducer = (state = initialState, action) => {
         ...state,
         data: action.words,
       };
+    case actiontype.FIND_WORDS:
+      let arr=[...state.regData]
+      let quesWords=arr.filter(el=>el.nameTr.match(action.val))
+      return{
+        ...state,
+        hskdata:quesWords
+      }
+    case actiontype.FIND_CHAR:
+        let chararr=[...state.regData]
+        let quesChar=chararr.filter(el=>el.name.match(action.val))
+        return{
+          ...state,
+          hskdata:quesChar
+        }
     case actiontype.ADD_CHECK:
       let newArr = state.checkedArr;
       newArr.push(action.value);
@@ -52,6 +67,7 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         hskdata: hsk4,
+        regData:hsk4
       };
     case actiontype.HSK_3:
       let hsk3 = state.data.filter((el) => {
@@ -60,6 +76,7 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         hskdata: hsk3,
+        regData:hsk3
       };
   }
   return state;

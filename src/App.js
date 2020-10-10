@@ -10,9 +10,10 @@ import Main from "./Containers/Main";
 import * as actionCreators from "./store/actions/actions";
 import style from "styled-components";
 import NavLinks from "./shared/Nav";
+import Train from "./Containers/Train"
 
 let CustomMain = style.main`
-background-color:${(props) => (props.alt ? "black " : "white ")};
+background:${(props) => (props.alt ? "#0F0D28 " : "white ")};
 position:absolute;
 color:${(props) => (props.alt ? "white" : "black")};
 width:100%;
@@ -29,10 +30,11 @@ class App extends Component {
 
     let id = localStorage.getItem("userId");
     this.props.checkAuth(token, id);
+
   }
 
   render() {
-    console.log(this.props.token)
+  
     return (
       <CustomMain alt={this.props.sun}>
         <BrowserRouter>
@@ -46,6 +48,7 @@ class App extends Component {
               <Route path="/login" exact component={LogIn}></Route>
               <Route path="/dictionary" exact component={Dictionary}></Route>
               <Route path="/dictionary/3" exact component={Dictionary}></Route>
+              <Route path="/train" exact component={Train}></Route>
             </Switch>
           </div>
         </BrowserRouter>

@@ -43,14 +43,13 @@ class Dictionary extends Component {
     this.props.onStoreWord();
   }
 
-  componentDidUpdate(){
-    console.log('rfvrf')
-  }
+
 
   render() {
-    console.log(this.props.location);
     return (
       <div>
+        <input type='text' onChange={e=>this.props.findWords(e.target.value)}></input>
+        <input type='text' onChange={e=>this.props.findChar(e.target.value)}></input>
         <Ul>
           <li>
             {this.props.hskdata.map((word) => {
@@ -86,12 +85,12 @@ class Dictionary extends Component {
         </Ul>
         <div>
           <StyledDiv>
-            <Link onClick={this.props.hsk4} to="/converter" exact>
+            <Link onClick={this.props.hsk4} to="/dictionary" exact>
               HSK4
             </Link>
           </StyledDiv>
           <StyledDiv>
-            <Link onClick={this.props.hsk3} to="/converter/3" exact>
+            <Link onClick={this.props.hsk3} to="/dictionary/3" exact>
               HSK3
             </Link>
             <Link  to="/cart" exact>
@@ -140,7 +139,6 @@ class Dictionary extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.res.checkedArr);
   return {
     stored: state.res.data,
     details: state.res.details,
@@ -153,6 +151,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    findWords:val=>dispatch({type:'FIND_WORDS',val:val}),
+    findChar:val=>dispatch({type:'FIND_CHAR', val:val}),
     addMultiple: (checkedArr, token) =>
       dispatch(actionCreators.addToCart(checkedArr, token)),
     addToLearn: (id, token) => dispatch(actionCreators.addToLearn(id, token)),

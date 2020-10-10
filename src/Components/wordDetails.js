@@ -15,6 +15,7 @@ background-color:white;
 margin:100px auto 0 auto;
 border-radius:10px;
 align-items:center;
+font-size:22px;
 `;
 const Type = style.div`
 padding:10px 0 0 10px;
@@ -26,8 +27,11 @@ color:red;
 `;
 const FootDiv = style.div`
 text-align:center;
+margin-top:30px;
 `;
-
+const Word = style.div`
+margin-bottom:60px;
+`
 const HigherDiv = style.div`
 position:relative;
 margin-top:50px;
@@ -35,13 +39,16 @@ text-align:center
 `;
 const CustomIcon = styled(VolumeUpIcon)({
   position: "absolute",
+  top:"55px",
+  left:'8px',
   display: "block",
-  top: "0px",
   cursor: "pointer",
   color: "#8987A0",
+  width: "30px",
+  height: "30px",
   "&:hover": {
-    width: "27px",
-    height: "27px",
+    width: "35px",
+    height: "35px",
     color: "#2412D4 ",
   },
 });
@@ -67,13 +74,14 @@ let wordDetails = (props) => {
       <Image src={props.image}></Image>
       <HigherDiv>
         <CustomIcon onClick={() => audio.play()} />
+        < Word>
         <div>{props.name}</div>
         <div>{props.pinin}</div>
+        </Word>
       </HigherDiv>
       <div>
         {props.nameTr}({props.nameType})
       </div>
-
       <FootDiv>
         <div>{props.example}</div>
         <div>{props.exampleTr}</div>

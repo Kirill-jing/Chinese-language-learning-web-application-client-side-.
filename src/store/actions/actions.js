@@ -28,6 +28,9 @@ export const CHANGE_THEME = "CHANGE_THEME";
 export const DELETE_CART = "DELETE_CART";
 export const ADD_DEFAULT = "ADD_DEFAULT";
 export const INST_DELETE="INST_DELETE"
+export const FIND_WORDS="FIND_WORDS"
+export const FIND_CHAR = "FIND_CHAR"
+export const CHECK_ANSWER="CHECK_ANSWER"
 
 export const postResult = (
   e,

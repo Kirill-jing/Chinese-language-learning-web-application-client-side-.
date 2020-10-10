@@ -37,11 +37,14 @@ border:1px solid black;
 
 class Cart extends Component {
 componentDidMount(){
-  this.props.onStoreCart(this.props.token);
+  let tok = localStorage.getItem("token");
+  this.props.onStoreCart(tok);
+  
 }
   render() {
     return (
       <div>
+        
         {this.props.cartData !== undefined ? (
           <Ul>
             <li>
@@ -82,12 +85,12 @@ componentDidMount(){
 
         <div>
           <StyledDiv>
-            <Link onClick={this.props.hsk4} to="/converter" exact>
+            <Link onClick={this.props.hsk4} to="/dictionary" exact>
               HSK4
             </Link>
           </StyledDiv>
           <StyledDiv>
-            <Link onClick={this.props.hsk3} to="/converter/3" exact>
+            <Link onClick={this.props.hsk3} to="/dictionary/3" exact>
               HSK3
             </Link>
           </StyledDiv>
@@ -141,6 +144,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.deleteCart(cartData, token, id)),
     onStoreCart: (token, cart) =>
       dispatch(actionCreators.saveCart(token, cart)),
+     open: (id) => dispatch({ type: "OPEN", id: id }),
+     close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),
     hsk3: () => dispatch({ type: "HSK_3" }),
     instDelete:(cartData,id)=>dispatch({type:'INST_DELETE',cartData:cartData,id:id})

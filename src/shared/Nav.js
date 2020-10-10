@@ -2,19 +2,56 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
-import style from "styled-components";
+import style ,{keyframes,css} from "styled-components";
 import { styled } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 const Sun = styled(WbSunnyIcon)({
-  color: "#C0C012  ",
+  color: "yellow  ",
 });
 
+const moonHov = keyframes`
+0% {
+  opacity: 1;
+}
+50%{
+  opacity:0
+}
+100% {
+  opacity: 1
+}
+
+`
+
+const animation = props =>
+  css`
+    ${moonHov};
+  `
 const Moon = styled(Brightness2Icon)({
   color: "#E5F2F2 ",
   border: "0px",
+  // animationFillMode:'forward',
+  // animationDuration:'1s'
+  // "&:hover": {
+  //   transition:'1s',
+  //   transform: 'scale(1.2 ,1.2) rotate(180deg)',
+
+  // }
 });
+
+const MoonHov=style(Moon)`
+
+opacity:1;
+&:hover {
+  animation-name:${moonHov};
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+
+
+}
+`
+
 const CustomNav=style.nav`
 display:flex;
 width:100%;
@@ -30,11 +67,12 @@ const CustomButton=styled(Button)({
   borderRadius:'50%'
 })
 const CustomLink=style(NavLink)`
-color:#503939;
+color:black;
   text-decoration:none;
   margin:0 30px;
   &.active {
-    text-shadow: 0px 0px 6px #523F40 0 0 1em #523F40 
+    text-shadow: 0px 0px 6px yellow 0 0 1em yellow ;
+    color : yellow;
   };
 `
 const NavLinks = (props) => {
@@ -52,9 +90,9 @@ const NavLinks = (props) => {
           return props.theme(sun);
         }}
       >
-        {sun ? <Sun /> : <Moon />}
+        {sun ? <Sun /> : <MoonHov />}
       </CustomButton>
-      <CustomLink to="/converter" exact>
+      <CustomLink to="/dictionary" exact>
         Словарь
       </CustomLink>
       <CustomLink to="/signup" exact>
@@ -66,7 +104,7 @@ const NavLinks = (props) => {
       <CustomLink to="/cart" exact>
         Мои слова 
       </CustomLink>
-      <CustomLink to="/" exact>
+      <CustomLink to="/train" exact>
         Тренировка 
       </CustomLink>
 
