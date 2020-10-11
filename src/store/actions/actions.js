@@ -31,6 +31,7 @@ export const INST_DELETE="INST_DELETE"
 export const FIND_WORDS="FIND_WORDS"
 export const FIND_CHAR = "FIND_CHAR"
 export const CHECK_ANSWER="CHECK_ANSWER"
+export const NEXT_QUESTION="NEXT_QUESTION"
 
 export const postResult = (
   e,
