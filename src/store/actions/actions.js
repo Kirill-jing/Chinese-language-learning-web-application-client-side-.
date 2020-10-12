@@ -32,7 +32,9 @@ export const FIND_WORDS="FIND_WORDS"
 export const FIND_CHAR = "FIND_CHAR"
 export const CHECK_ANSWER="CHECK_ANSWER"
 export const NEXT_QUESTION="NEXT_QUESTION"
+export const ANIM_FALSE = "ANIM_FALSE"
 
+export const SET_PARAMS="SET_PARAMS"
 export const postResult = (
   e,
   name,

@@ -9,48 +9,23 @@ import Button from "@material-ui/core/Button";
 
 const Sun = styled(WbSunnyIcon)({
   color: "yellow  ",
+  transition:'1s',
+  "&:hover": {
+    
+    transform: ' rotate(180deg)',
+
+  }
 });
 
-const moonHov = keyframes`
-0% {
-  opacity: 1;
-}
-50%{
-  opacity:0
-}
-100% {
-  opacity: 1
-}
-
-`
-
-const animation = props =>
-  css`
-    ${moonHov};
-  `
-const Moon = styled(Brightness2Icon)({
+const MoonHov = styled(Brightness2Icon)({
   color: "#E5F2F2 ",
   border: "0px",
-  // animationFillMode:'forward',
-  // animationDuration:'1s'
-  // "&:hover": {
-  //   transition:'1s',
-  //   transform: 'scale(1.2 ,1.2) rotate(180deg)',
-
-  // }
+  transition:'1s',
+  "&:hover": {
+    transform: ' rotate(180deg)',
+  }
 });
 
-const MoonHov=style(Moon)`
-
-opacity:1;
-&:hover {
-  animation-name:${moonHov};
-  animation-duration:1s;
-  animation-fill-mode:forwards;
-
-
-}
-`
 
 const CustomNav=style.nav`
 display:flex;

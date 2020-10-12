@@ -39,7 +39,6 @@ class Cart extends Component {
 componentDidMount(){
   let tok = localStorage.getItem("token");
   this.props.onStoreCart(tok);
-  
 }
   render() {
     return (
