@@ -52,6 +52,10 @@ componentDidMount(){
                   <Word
                     key={word._id}
                     name={word.name}
+                    addCheck={(value, check) =>
+                      this.props.addCheck(value, check)
+                    }
+                    id={word._id}
                     nameTr={word.nameTr}
                     pinin={word.pinin}
                     example={word.example}
@@ -92,6 +96,10 @@ componentDidMount(){
             <Link onClick={this.props.hsk3} to="/dictionary/3" exact>
               HSK3
             </Link>
+            <button onClick={()=>
+              this.props.removeMultiple(this.props.cartData,this.props.checkedArr,this.props.token)}>
+              Remove Mult
+            </button>
           </StyledDiv>
         </div>
         <Modal
@@ -127,14 +135,14 @@ componentDidMount(){
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.cart.cartData);
-  console.log(state.cart.example);
+  console.log(state.cart.checkedArr);
   return {
     stored: state.res.data,
     details: state.res.details,
     modalWord: state.res.modalWord,
     cartData: state.cart.cartData,
     token: state.sign.token,
+    checkedArr:state.cart.checkedArr
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -143,11 +151,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.deleteCart(cartData, token, id)),
     onStoreCart: (token, cart) =>
       dispatch(actionCreators.saveCart(token, cart)),
-     open: (id) => dispatch({ type: "OPEN", id: id }),
-     close: () => dispatch({ type: "CLOSE" }),
+    removeMultiple:(cartData,removeArr,token) =>
+      dispatch(actionCreators.removeMultiple(cartData,removeArr,token)),
+    addCheck: (value, check) =>
+      dispatch({ type: "ADD_CART_CHECK", value: value, check: check }),
+    open: (id) => dispatch({ type: "OPEN", id: id }),
+    close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),
     hsk3: () => dispatch({ type: "HSK_3" }),
-    instDelete:(cartData,id)=>dispatch({type:'INST_DELETE',cartData:cartData,id:id})
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

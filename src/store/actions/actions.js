@@ -33,6 +33,7 @@ export const FIND_CHAR = "FIND_CHAR"
 export const CHECK_ANSWER="CHECK_ANSWER"
 export const NEXT_QUESTION="NEXT_QUESTION"
 export const ANIM_FALSE = "ANIM_FALSE"
+export const ADD_CART_CHECK="ADD_CART_CHECK"
 
 export const SET_PARAMS="SET_PARAMS"
 export const postResult = (
@@ -190,3 +191,15 @@ export const deleteCart = (cartData, token, id) => {
       }).then(res=>dispatch(filterWord(newData)))
   };
 };
+
+export const removeMultiple=(cartData,removeArr,token)=>{
+
+  let data = {removeArr:removeArr}
+  return dispatch=>{
+    axios.post('http://localhost:5004/admin/delete-multwords',data,{
+      headers: {
+        Authorization: "bearer " + token,
+      },
+    })
+  }
+}
