@@ -11,7 +11,6 @@ const Sun = styled(WbSunnyIcon)({
   color: "yellow  ",
   transition:'1s',
   "&:hover": {
-    
     transform: ' rotate(180deg)',
 
   }

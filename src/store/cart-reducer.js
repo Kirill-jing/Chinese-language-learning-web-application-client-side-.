@@ -33,6 +33,11 @@ const cartreducer = (state = initialState, action) => {
         ...state,
         checkedArr: jArr,
       };
+    case actiontype.FILTER_MULTIPLE:
+      return{
+        ...state,
+        cartData:action.newArr
+      }
   }
   return state;
 };

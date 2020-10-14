@@ -85,7 +85,6 @@ let word = (props) => {
       {props.showDelete ? (
         <Button onClick={() => { 
           props.instDelete()
-          
          return props.delete()}}>
           <CustomDel />
         </Button>

@@ -135,7 +135,6 @@ componentDidMount(){
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.cart.checkedArr);
   return {
     stored: state.res.data,
     details: state.res.details,

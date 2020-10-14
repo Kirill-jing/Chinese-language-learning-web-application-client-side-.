@@ -34,8 +34,11 @@ export const CHECK_ANSWER="CHECK_ANSWER"
 export const NEXT_QUESTION="NEXT_QUESTION"
 export const ANIM_FALSE = "ANIM_FALSE"
 export const ADD_CART_CHECK="ADD_CART_CHECK"
-
+export const FILTER_MULTIPLE="FILTER_MULTIPLE"
+export const SET_AUDIO="SET_AUDIO"
 export const SET_PARAMS="SET_PARAMS"
+export const NEXT_AUDIO="NEXT_AUDIO"
+
 export const postResult = (
   e,
   name,
@@ -95,6 +98,14 @@ export const filterWord = (cartData) => {
     cartData: cartData,
   };
 };
+
+export const filterMultiple=(newArr)=>{
+  return{
+    type:FILTER_MULTIPLE,
+    newArr:newArr
+  }
+}
+
 
 export const saveWords = () => {
   return (dispatch) => {
@@ -193,13 +204,18 @@ export const deleteCart = (cartData, token, id) => {
 };
 
 export const removeMultiple=(cartData,removeArr,token)=>{
-
-  let data = {removeArr:removeArr}
+  let newArr=cartData.filter(el=>{
+      return removeArr.every(elem=>elem!==el._id)
+  })
+  console.log(newArr)
+  let data = {
+      removeArr:removeArr
+    }
   return dispatch=>{
     axios.post('http://localhost:5004/admin/delete-multwords',data,{
       headers: {
         Authorization: "bearer " + token,
       },
-    })
+    }).then(res=>dispatch(filterMultiple(newArr)))
   }
 }

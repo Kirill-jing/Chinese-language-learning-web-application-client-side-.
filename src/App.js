@@ -10,8 +10,9 @@ import Main from "./Containers/Main";
 import * as actionCreators from "./store/actions/actions";
 import style from "styled-components";
 import NavLinks from "./shared/Nav";
-import Train from "./Containers/Train"
-
+import CharWord from "./Containers/Char-word"
+import Train from './Containers/Train'
+import AudioChar from './Containers/Audio-char'
 let CustomMain = style.main`
 background:${(props) => (props.alt ? "#0F0D28 " : "white ")};
 position:absolute;
@@ -48,7 +49,9 @@ class App extends Component {
               <Route path="/login" exact component={LogIn}></Route>
               <Route path="/dictionary" exact component={Dictionary}></Route>
               <Route path="/dictionary/3" exact component={Dictionary}></Route>
-              <Route path="/train" exact component={Train}></Route>
+              <Route path="/train/char-word" exact component={CharWord}></Route>
+              <Route path="/train/audio-char" exact component={AudioChar}></Route>
+              <Route path="/train" component={Train}></Route>
             </Switch>
           </div>
         </BrowserRouter>

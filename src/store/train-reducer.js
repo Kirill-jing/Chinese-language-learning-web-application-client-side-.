@@ -7,7 +7,10 @@ const initialState = {
     cartData:[''],
     answer:false,
     anim:false,
-    br:''
+    br:'',
+    audcount:0,
+    audio:''
+
 };
 const trainreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -24,24 +27,34 @@ const trainreducer = (state = initialState, action) => {
         anim:false
       }
     case actiontype.NEXT_QUESTION:
-      console.log('true')
       let b = state.count+1
       return{
         ...state,
         count:b,
         anim:true,
         br:0.50*state.cartData.length,
-        arr:[Math.random()*state.cartData.length,Math.random()*state.cartData.length,0.50*state.cartData.length,Math.random()*state.cartData.length].sort((a,b)=>a-b),
-
-      } 
+        arr:[Math.random()*state.cartData.length,
+            Math.random()*state.cartData.length,
+            0.50*state.cartData.length,
+            Math.random()*state.cartData.length]
+            .sort((a,b)=>a-b),
+          } 
     case actiontype.ANIM_FALSE:
-      console.log('efgrtg')
-     return {
-       ...state,
-       anim:true,
-
+      return {
+        ...state,
+        anim:true,
      }
-    
+    case actiontype.SET_AUDIO:
+      return{
+        ...state,
+        audio:state.cartData[state.audcount].audio
+      }
+    case actiontype.NEXT_AUDIO:
+      let a = state.audcount+1
+      return{
+        ...state,
+        audcount:a
+      }
   }
   return state;
 };
