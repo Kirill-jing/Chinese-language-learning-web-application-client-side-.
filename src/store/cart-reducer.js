@@ -4,7 +4,8 @@ const initialState = {
   cartData: [],
   token: undefined,
   userId: undefined,
-  checkedArr:[]
+  checkedArr:[],
+  length:0
 };
 
 const cartreducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const cartreducer = (state = initialState, action) => {
       return {
         ...state,
         cartData: action.cart,
+        length:action.cart.length
       };
     case actiontype.DELETE_CART:
       return {

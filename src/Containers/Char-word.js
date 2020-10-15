@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/actions";
-import style,{keyframes,css} from "styled-components";;
+import style,{keyframes,css} from "styled-components";
+import HelpIcon from '@material-ui/icons/Help';
+import ForwardIcon from '@material-ui/icons/Forward';
+import Button from "@material-ui/core/Button";
 const moonHov = keyframes`
   0% {
     opacity: 1;
@@ -40,7 +43,7 @@ const Inputs = style.div`
   width:100px;
 `
 const CustomInp=style.input`
-
+background-color:${props=>props.value===props.name ? 'green' : 'white'}
 `
 class CharWord extends Component {
   componentDidMount() {
@@ -52,25 +55,27 @@ class CharWord extends Component {
       <div>
         <AnimateDiv  animate={this.props.anim} >
           <Ques>
-            {this.props.cart.length>0 ?this.props.cart[this.props.count].name:' '}
+            {this.props.cart.length>0 ? this.props.cart[this.props.count].name : ' '}
           </Ques>
           <Inputs>
             {this.props.arr.map((el,i)=>{
             let check=el==this.props.br&&this.props.cart.length > 0  ? this.props.cart[this.props.count].name:' '
             return(
-              <CustomInp value={this.props.cart.length> 0 && el!== this.props.br  ? 
+              <CustomInp name={this.props.name} value={this.props.cart.length> 0 && el!== this.props.br  ? 
                 this.props.cart[Math.floor(this.props.arr[i])].name : check }  type='button'
                   onClick={e=>this.props.checkAnswer(e.target.value)}>
               </CustomInp>
             )})}
           </Inputs>
-          <button onClick={e=>{
+          <Button
+            disabled={this.props.disable}
+            onClick={e=>{
             this.props.toggleAnim()
             e.persist()
             window.setTimeout(()=>this.props.nextQuestion(),400) 
-            }
-            }>
-          </button>
+            }}>
+             <ForwardIcon/> 
+          </Button>
         </AnimateDiv>
       </div>
       
@@ -79,6 +84,7 @@ class CharWord extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.train.rightAnswers)
   return {
    cart:state.cart.cartData,
    btn:state.train.btn,
@@ -86,7 +92,9 @@ const mapStateToProps = (state) => {
    arr:state.train.arr,
    anim:state.train.anim,
    answer:state.train.answer,
-   br:state.train.br
+   br:state.train.br,
+   name:state.train.name,
+   disable:state.train.disable
   };
 };
 const mapDispatchToProps = (dispatch) => {

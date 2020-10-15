@@ -4,6 +4,13 @@ import * as actionCreators from "../store/actions/actions";
 import style,{keyframes,css} from "styled-components";
 import { NavLink,BrowserRouter, Route, } from "react-router-dom";
 import CharWord from './Char-word'
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
+import { styled } from "@material-ui/core/styles";
+
+const CustomSlider = styled(Slider)({
+  width: "200px",
+});
 
 class Train extends Component {
   componentDidMount() {
@@ -15,6 +22,19 @@ class Train extends Component {
           <div>
               <NavLink to='/train/char-word'>rtgt4g</NavLink>
               <NavLink to='/train/audio-char'>rtgt4g</NavLink>
+            <div>
+              <Typography id="range-slider" gutterBottom>
+                Temperature range
+              </Typography>
+              <CustomSlider
+                value={this.props.sliderVal}
+                min={0}
+                step={1}
+                onChange={this.props.handleChange}
+                max={this.props.length}
+                aria-labelledby="range-slider"
+              />
+            </div>
           </div>
     );
   }
@@ -23,12 +43,18 @@ class Train extends Component {
 const mapStateToProps = (state) => {
   return {
    cart:state.cart.cartData,
+   count:state.train.count,
+   length:state.cart.length,
+   sliderVal:state.train.sliderVal
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onStoreCart: (token, cart) =>
+    onStoreCart: (token
+      , cart) =>
     dispatch(actionCreators.saveCart(token, cart)),
+    handleChange:(val,e)=>dispatch({type:"HANDLE_SLIDER",e:e})
+    
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Train);

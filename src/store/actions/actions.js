@@ -38,6 +38,9 @@ export const FILTER_MULTIPLE="FILTER_MULTIPLE"
 export const SET_AUDIO="SET_AUDIO"
 export const SET_PARAMS="SET_PARAMS"
 export const NEXT_AUDIO="NEXT_AUDIO"
+export const CHECK_CHAR="CHECK_CHAR"
+export const GIVE_ANSWER="GIVE_ANSWER"
+export const HANDLE_SLIDER = "HANDLE_SLIDER"
 
 export const postResult = (
   e,
