@@ -20,8 +20,8 @@ class Train extends Component {
   render() {
     return (
           <div>
-              <NavLink to='/train/char-word'>rtgt4g</NavLink>
-              <NavLink to='/train/audio-char'>rtgt4g</NavLink>
+              <NavLink to='/char-word'>rtgt4g</NavLink>
+              <NavLink to='/audio-char'>rtgt4g</NavLink>
             <div>
               <Typography id="range-slider" gutterBottom>
                 Temperature range
@@ -32,6 +32,7 @@ class Train extends Component {
                 step={1}
                 onChange={this.props.handleChange}
                 max={this.props.length}
+                valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
               />
             </div>
@@ -41,6 +42,7 @@ class Train extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.train.arr)
   return {
    cart:state.cart.cartData,
    count:state.train.count,

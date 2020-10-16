@@ -3,7 +3,7 @@ import * as actiontype from "./actions/actions";
 const initialState = {
     btn:'',
     count:0,
-    arr:[Math.random(),Math.random(),0.66,Math.random()].sort((a,b)=>a-b),
+    arr:[],
     cartData:[''],
     answer:false,
     anim:false,
@@ -16,7 +16,13 @@ const initialState = {
     name:'',
     rightAnswers:0,
     length:0,
-    sliderVal:[]
+    sliderVal:[],
+    audio:'',
+    char:'',
+    limit:0,
+    history:'',
+    redirect:false
+
 
 };
 const trainreducer = (state = initialState, action) => {
@@ -26,12 +32,20 @@ const trainreducer = (state = initialState, action) => {
         ...state,
         cartData: action.cart,
         length:action.cart.length,
-        sliderVal:[0,action.cart.length]
+        sliderVal:[0,action.cart.length],
+        arr:[1,1,0.66,1].sort((a,b)=>a-b),
+        audio:action.cart[0].audio,
+        char:action.cart[0].name,
+        history:action.history
       };
     case actiontype.HANDLE_SLIDER:
       console.log(action.e)
       return{
-        sliderVal:action.e
+        sliderVal:action.e,
+        audcount:action.e[0],
+        arr:[1,0.66,1,1],
+        count:action.e[0],
+        limit:action.e[1]
       }
     case actiontype.CHECK_ANSWER:
     let q=state.cartData[state.count].name===action.check
@@ -44,12 +58,26 @@ const trainreducer = (state = initialState, action) => {
       }
     case actiontype.NEXT_QUESTION:
       let b = state.count+1
+      if(b===state.limit){
+        alert('Вы достигли устаноленного вами лимита :)')
+      }
+      if(b===state.cartData.length){
+        
+        return{
+          ...state,
+          count:0,
+          audio:state.cartData[0],
+          disable:false,
+          
+        }
+      }
       let quesAnswer = state.answer===true ?
         state.rightAnswers + 1 :
         state.rightAnswers
       return{
         ...state,
         count:b,
+        audio:state.cartData[b],
         anim:true,
         br:0.50*state.cartData.length,
         arr:[
@@ -61,12 +89,22 @@ const trainreducer = (state = initialState, action) => {
           .sort((a,b)=>a-b),
         name:'',
         rightAnswers:quesAnswer,
-        disable:true
+        disable:true,
+        
         } 
     case actiontype.ANIM_FALSE:
+      let c = state.count+1
+      if(c===state.cartData.length){
+        return {
+          ...state,
+          anim:true,
+          redirect:true
+       }
+      }
       return {
         ...state,
         anim:true,
+        
      }
     case actiontype.SET_AUDIO:
       return{
@@ -95,6 +133,11 @@ const trainreducer = (state = initialState, action) => {
         ...state,
         inputVal:state.cartData[state.audcount].name,
         audCheck:true
+      }
+    case actiontype.SET_RED:
+      return{
+        ...state,
+        redirect:false
       }
   }
   return state;

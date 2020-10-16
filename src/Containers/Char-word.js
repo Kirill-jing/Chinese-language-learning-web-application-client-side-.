@@ -47,9 +47,11 @@ background-color:${props=>props.value===props.name ? 'green' : 'white'}
 `
 class CharWord extends Component {
   componentDidMount() {
+    let history =this.props.history
     let tok = localStorage.getItem('token')
-    this.props.onStoreCart(tok);
+    this.props.onStoreCart(tok,history);
     }
+     
   render() {
     return (
       <div>
@@ -84,7 +86,7 @@ class CharWord extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.train.rightAnswers)
+ console.log(state.train.history)
   return {
    cart:state.cart.cartData,
    btn:state.train.btn,
@@ -94,13 +96,13 @@ const mapStateToProps = (state) => {
    answer:state.train.answer,
    br:state.train.br,
    name:state.train.name,
-   disable:state.train.disable
+   disable:state.train.disable,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onStoreCart: (token, cart) =>
-    dispatch(actionCreators.saveCart(token, cart)),
+    onStoreCart: (token, history) =>
+    dispatch(actionCreators.saveCart(token, history)),
     toggleAnim:()=>dispatch({type:"ANIM_FALSE"}),
     onStoreWord: (words) => dispatch(actionCreators.saveWords(words)),
     checkAnswer:(checkingWord)=>dispatch({type:"CHECK_ANSWER",check:checkingWord}),

@@ -15,7 +15,7 @@ class AudioChar extends Component {
         this.props.onStoreCart(tok);
     }
   render() {
-    let audio= this.props.cart.length>0 ? new Audio("http://localhost:5004/" + this.props.cart[this.props.count].audio) :' '
+    let audio= this.props.cart.length>0 ? new Audio("http://localhost:5004/" + this.props.audio) :' '
     return (
         <div>
             <Button onClick={() => audio.play()}>play</Button>
@@ -27,13 +27,12 @@ class AudioChar extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.train.audCheck)
-    console.log(state.train.cartData[state.train.audcount])
   return {
    cart:state.cart.cartData,
    count:state.train.audcount,
    inputVal:state.train.inputVal,
-   audCheck:state.train.audCheck
+   audCheck:state.train.audCheck,
+   audio:state.train.audio
   };
 };
 const mapDispatchToProps = (dispatch) => {

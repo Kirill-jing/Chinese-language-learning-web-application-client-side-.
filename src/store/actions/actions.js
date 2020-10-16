@@ -41,6 +41,7 @@ export const NEXT_AUDIO="NEXT_AUDIO"
 export const CHECK_CHAR="CHECK_CHAR"
 export const GIVE_ANSWER="GIVE_ANSWER"
 export const HANDLE_SLIDER = "HANDLE_SLIDER"
+export const SET_RED="SET_RED"
 
 export const postResult = (
   e,
@@ -88,10 +89,11 @@ export const saveAuth = (token, userId) => {
   };
 };
 
-export const saveMyWords = (cart) => {
+export const saveMyWords = (cart,history) => {
   return {
     type: STORE_CART,
     cart: cart,
+    history:history
   };
 };
 
@@ -168,7 +170,7 @@ export const login = (e, logName, logPassword) => {
   };
 };
 
-export const saveCart = (token) => {
+export const saveCart = (token,history) => {
   return (dispatch) => {
     axios
       .get("http://localhost:5004/admin/get-cart", {
@@ -176,7 +178,7 @@ export const saveCart = (token) => {
           Authorization: "bearer " + token,
         },
       })
-      .then((cart) => dispatch(saveMyWords(cart.data.cart)));
+      .then((cart) => dispatch(saveMyWords(cart.data.cart,history)));
   };
 };
 

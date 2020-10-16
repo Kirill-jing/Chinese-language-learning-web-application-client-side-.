@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch , Redirect} from "react-router-dom";
 import SignUp from "./Containers/SignUp";
 import Admin from "./Containers/Admin";
 import Dictionary from "./Containers/Dictionary";
@@ -31,17 +31,21 @@ class App extends Component {
 
     let id = localStorage.getItem("userId");
     this.props.checkAuth(token, id);
-
   }
 
   render() {
-  
+  let red=this.props.redirect
+    if (this.props.redirect === true) {
+      red = <Redirect to="/admin"></Redirect>;
+      setTimeout(()=>this.props.setRed(),100)
+    }
     return (
       <CustomMain alt={this.props.sun}>
         <BrowserRouter>
           <div>
             <NavLinks theme={(sun) => this.props.theme(sun)} />
             <Switch>
+              {red}
               <Route path="/" exact component={Main}></Route>
               <Route path="/admin" exact component={Admin}></Route>
               <Route path="/signup" exact component={SignUp}></Route>
@@ -49,9 +53,9 @@ class App extends Component {
               <Route path="/login" exact component={LogIn}></Route>
               <Route path="/dictionary" exact component={Dictionary}></Route>
               <Route path="/dictionary/3" exact component={Dictionary}></Route>
-              <Route path="/train/char-word" exact component={CharWord}></Route>
-              <Route path="/train/audio-char" exact component={AudioChar}></Route>
-              <Route path="/train" component={Train}></Route>
+              <Route path="/char-word" exact component={CharWord}></Route>
+              <Route path="/audio-char" exact component={AudioChar}></Route>
+              <Route path="/train" exact component={Train}></Route>
             </Switch>
           </div>
         </BrowserRouter>
@@ -61,15 +65,18 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.train.redirect)
   return {
     isAuth: state.sign.isAuth,
     token: state.sign.token,
     userId: state.sign.userId,
     sun: state.sign.sun,
+    redirect:state.train.redirect
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    setRed:()=>dispatch({type:"SET_RED"}),
     checkAuth: (token, id) =>
       dispatch({ type: "CHECK_AUTH", token: token, id: id }),
     theme: (sun) => dispatch({ type: "CHANGE_THEME", sun: sun }),
