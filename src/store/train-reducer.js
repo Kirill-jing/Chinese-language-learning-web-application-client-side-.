@@ -34,7 +34,7 @@ const trainreducer = (state = initialState, action) => {
         length:action.cart.length,
         sliderVal:[0,action.cart.length],
         arr:[1,1,0.66,1].sort((a,b)=>a-b),
-        audio:action.cart[0].audio,
+        audio:action.cart.length>0?action.cart[0].audio:' ',
         char:action.cart[0].name,
         history:action.history
       };

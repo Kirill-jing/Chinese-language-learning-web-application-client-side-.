@@ -46,9 +46,9 @@ const CustomIcon = styled(VolumeUpIcon)({
   color: "#8987A0",
   width: "30px",
   height: "30px",
+  transition:'0.3s',
   "&:hover": {
-    width: "35px",
-    height: "35px",
+    transform:'scale(1.2)',
     color: "#2412D4 ",
   },
 });

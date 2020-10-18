@@ -19,6 +19,7 @@ import * as actionCreators from "../store/actions/actions";
 import { SignalCellularNullSharp } from "@material-ui/icons";
 
 const Ul = style.ul`
+
 list-style-type:none;
 `;
 const Link = style(NavLink)`
@@ -78,7 +79,7 @@ componentDidMount(){
                         word._id
                       )
                     }
-                    instDelete={()=>this.props.instDelete(this.props.cartData,word._id)}
+                    // instDelete={()=>this.props.instDelete(this.props.cartData,word._id)}
                   />
                 );
               })}
@@ -154,6 +155,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.removeMultiple(cartData,removeArr,token)),
     addCheck: (value, check) =>
       dispatch({ type: "ADD_CART_CHECK", value: value, check: check }),
+    instDelete:(cart,id)=> dispatch({type:'INST_DELETE'}) ,
     open: (id) => dispatch({ type: "OPEN", id: id }),
     close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),

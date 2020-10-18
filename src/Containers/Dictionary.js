@@ -22,11 +22,12 @@ import Fade from "@material-ui/core/Fade";
 import * as actionCreators from "../store/actions/actions";
 
 const Ul = style.ul`
+margin-top:50px;
 list-style-type:none;
 `;
 const Link = style(NavLink)`
-margin:100px;
-display:block;
+  margin:100px;
+  display:block;
   color: red;
   text-decoration: none;
   &.active {
@@ -41,9 +42,8 @@ border:1px solid black;
 class Dictionary extends Component {
   componentDidMount() {
     this.props.onStoreWord();
+    this.props.hsk4()
   }
-
-
 
   render() {
     return (
@@ -101,8 +101,7 @@ class Dictionary extends Component {
                 this.props.addMultiple(this.props.checkedArr, this.props.token)
               }
             >
-              
-              uyjyu6j6yuj
+            
             </button>
           </StyledDiv>
         </div>

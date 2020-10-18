@@ -23,6 +23,7 @@ const Translation = style.div`
 margin-right:120px
 `;
 const CustFlex = style.div`
+margin-top:10px;
 display:flex;
 flex-direction:row;
 align-items:center;
@@ -30,6 +31,7 @@ font-size:22px;
 justify-content:center;
 `;
 const WordPin = style.div`
+text-align:center;
 dispaly:flex;
 flex-direction:column;
 margin:0 150px 0 10px;
@@ -84,7 +86,7 @@ let word = (props) => {
       </Button>
       {props.showDelete ? (
         <Button onClick={() => { 
-          props.instDelete()
+          // props.instDelete()
          return props.delete()}}>
           <CustomDel />
         </Button>

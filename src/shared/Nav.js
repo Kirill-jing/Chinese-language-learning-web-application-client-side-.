@@ -9,9 +9,9 @@ import Button from "@material-ui/core/Button";
 
 const Sun = styled(WbSunnyIcon)({
   color: "yellow  ",
-  transition:'1s',
+  transition:'0.5s',
   "&:hover": {
-    transform: ' rotate(180deg)',
+    transform: 'scale(1.2)',
 
   }
 });
@@ -19,14 +19,15 @@ const Sun = styled(WbSunnyIcon)({
 const MoonHov = styled(Brightness2Icon)({
   color: "#E5F2F2 ",
   border: "0px",
-  transition:'1s',
+  transition:'0.5s',
   "&:hover": {
-    transform: ' rotate(180deg)',
+    transform: 'scale(1.2)',
   }
 });
 
 
 const CustomNav=style.nav`
+position:fixed;
 display:flex;
 width:100%;
 font-size:24px;
