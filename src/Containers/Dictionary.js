@@ -22,27 +22,45 @@ import Fade from "@material-ui/core/Fade";
 import * as actionCreators from "../store/actions/actions";
 
 const Ul = style.ul`
-margin-top:50px;
-list-style-type:none;
+  margin:50px auto 0 auto;
+  list-style-type:none;
+  position:absolute;
+  width:100%;
+
 `;
+const Links = style.div`
+  position:fixed;
+  left:30px;
+  width:30%;
+  height:30%;
+`
 const Link = style(NavLink)`
-  margin:100px;
-  display:block;
+  display:flex;
+  font-size:28px;
+  align-items:center;
+  justify-content:center;
   color: red;
+  position:relative;
+  width:100%;
+  height:100%;
   text-decoration: none;
   &.active {
     color: black;
   };
 `;
 const StyledDiv = style.div`
-width:200px;
-border:1px solid black;
+  margin-top:30px;
+  position:relative;
+  display:flex;
+  border-radius:15px;
+  width:20vw;
+  height:15vh;
+  border:1px solid red;
 `;
 
 class Dictionary extends Component {
   componentDidMount() {
     this.props.onStoreWord();
-    this.props.hsk4()
   }
 
   render() {
@@ -50,6 +68,12 @@ class Dictionary extends Component {
       <div>
         <input type='text' onChange={e=>this.props.findWords(e.target.value)}></input>
         <input type='text' onChange={e=>this.props.findChar(e.target.value)}></input>
+        <button
+          onClick={(e) =>
+            this.props.addMultiple(this.props.checkedArr, this.props.token)
+          }
+        >
+        </button>
         <Ul>
           <li>
             {this.props.hskdata.map((word) => {
@@ -83,7 +107,7 @@ class Dictionary extends Component {
             })}
           </li>
         </Ul>
-        <div>
+        <Links>
           <StyledDiv>
             <Link onClick={this.props.hsk4} to="/dictionary" exact>
               HSK4
@@ -93,18 +117,8 @@ class Dictionary extends Component {
             <Link onClick={this.props.hsk3} to="/dictionary/3" exact>
               HSK3
             </Link>
-            <Link  to="/cart" exact>
-              HSK3
-            </Link>
-            <button
-              onClick={(e) =>
-                this.props.addMultiple(this.props.checkedArr, this.props.token)
-              }
-            >
-            
-            </button>
           </StyledDiv>
-        </div>
+        </Links>
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -138,6 +152,7 @@ class Dictionary extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.res.hskdata)
   return {
     stored: state.res.data,
     details: state.res.details,

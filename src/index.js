@@ -9,7 +9,7 @@ import signupreducer from "./store/signup-reducer";
 import asyncreducer from "./store/async-reducer";
 import cartreducer from "./store/cart-reducer";
 import trainreducer from "./store/train-reducer";
-import audiocharreducer from './store/audiochar-reducer'
+import flipreducer from "./store/flip-reducer"
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
   log: loginreducer,
   cart: cartreducer,
   train:trainreducer,
-  audiochar:audiocharreducer
+  flip:flipreducer
+
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

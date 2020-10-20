@@ -42,6 +42,11 @@ export const CHECK_CHAR="CHECK_CHAR"
 export const GIVE_ANSWER="GIVE_ANSWER"
 export const HANDLE_SLIDER = "HANDLE_SLIDER"
 export const SET_RED="SET_RED"
+export const FLIP_BTN="FLIP_BTN"
+export const CHANGE_INNER="CHANGE_INNER"
+export const NEXT_FLIP="NEXT_FLIP"
+export const ANIM_OPAC="ANIM_OPAC"
+export const CHANGE_DIR="CHANGE_DIR"
 
 export const postResult = (
   e,

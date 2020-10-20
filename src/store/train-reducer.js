@@ -35,7 +35,7 @@ const trainreducer = (state = initialState, action) => {
         sliderVal:[0,action.cart.length],
         arr:[1,1,0.66,1].sort((a,b)=>a-b),
         audio:action.cart.length>0?action.cart[0].audio:' ',
-        char:action.cart[0].name,
+        char:action.cart.length>0?action.cart[0].name:' ',
         history:action.history
       };
     case actiontype.HANDLE_SLIDER:

@@ -20,6 +20,13 @@ const loginreducer = (state = initialState, action) => {
         ...state,
         logPassword: action.logPassword,
       };
+    case actiontype.AUTH:
+      return {
+        ...state,
+        isAuth:true,
+        token:action.token,
+        userId:action.userId
+      }
   }
   return state;
 };

@@ -27,7 +27,7 @@ const MoonHov = styled(Brightness2Icon)({
 
 
 const CustomNav=style.nav`
-position:fixed;
+
 display:flex;
 width:100%;
 font-size:24px;
@@ -56,8 +56,9 @@ const NavLinks = (props) => {
   let toggle = () => {
     moon(!sun);
   };
-
+  console.log(props.isAuth)
   return (
+    
     <CustomNav>
       <CustomButton
         onClick={() => {
@@ -70,12 +71,18 @@ const NavLinks = (props) => {
       <CustomLink to="/dictionary" exact>
         Словарь
       </CustomLink>
-      <CustomLink to="/signup" exact>
-        Зарегестрироваться
-      </CustomLink>
-      <CustomLink to="/login" exact>
-        Войти
-      </CustomLink>
+      {props.isAuth===false ?
+        <CustomLink to="/signup" exact>
+          Зарегестрироваться
+        </CustomLink>
+          : null
+      }
+      {props.isAuth===false ?
+        <CustomLink to="/login" exact>
+          Войти
+        </CustomLink>
+          : null
+      }
       <CustomLink to="/cart" exact>
         Мои слова 
       </CustomLink>

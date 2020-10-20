@@ -29,7 +29,7 @@ const signupreducer = (state = initialState, action) => {
     case actiontype.AUTH:
       return {
         ...state,
-        isAuth: action.isAuth,
+        isAuth: true,
         token: action.token,
         userId: action.userId,
       };

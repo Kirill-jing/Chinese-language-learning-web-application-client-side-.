@@ -22,6 +22,7 @@ class Train extends Component {
           <div>
               <NavLink to='/char-word'>rtgt4g</NavLink>
               <NavLink to='/audio-char'>rtgt4g</NavLink>
+              <NavLink to='/flip-cards'>flip cards</NavLink>
             <div>
               <Typography id="range-slider" gutterBottom>
                 Temperature range

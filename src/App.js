@@ -13,6 +13,7 @@ import NavLinks from "./shared/Nav";
 import CharWord from "./Containers/Char-word"
 import Train from './Containers/Train'
 import AudioChar from './Containers/Audio-char'
+import Flip from './Containers/Flip-cards'
 let CustomMain = style.main`
 background:${(props) => (props.alt ? "#0F0D28 " : "white ")};
 position:absolute;
@@ -43,7 +44,10 @@ class App extends Component {
       <CustomMain alt={this.props.sun}>
         <BrowserRouter>
           <div>
-            <NavLinks theme={(sun) => this.props.theme(sun)} />
+            <NavLinks 
+              isAuth={this.props.isAuth}
+              theme={(sun) => this.props.theme(sun)} 
+            />
             <Switch>
               {red}
               <Route path="/" exact component={Main}></Route>
@@ -56,6 +60,7 @@ class App extends Component {
               <Route path="/char-word" exact component={CharWord}></Route>
               <Route path="/audio-char" exact component={AudioChar}></Route>
               <Route path="/train" exact component={Train}></Route>
+              <Route path="/flip-cards" exact component={Flip}></Route>
             </Switch>
           </div>
         </BrowserRouter>
@@ -65,7 +70,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.train.redirect)
   return {
     isAuth: state.sign.isAuth,
     token: state.sign.token,

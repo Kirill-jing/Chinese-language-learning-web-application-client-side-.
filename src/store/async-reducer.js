@@ -13,9 +13,13 @@ const initialState = {
 const asyncreducer = (state = initialState, action) => {
   switch (action.type) {
     case actiontype.STORE:
+      let hsk = action.words.filter((el) => {
+        return el.type === "HSK 4";
+      });
       return {
         ...state,
         data: action.words,
+        hskdata:hsk
       };
     case actiontype.FIND_WORDS:
       let arr=[...state.regData]
