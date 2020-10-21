@@ -29,15 +29,15 @@ class App extends Component {
     if (!token || !expiryDate) {
       return;
     }
-
+    let timeCheck=Date.parse(localStorage.getItem("expiryDate")) - new Date().getTime()<=0
     let id = localStorage.getItem("userId");
-    this.props.checkAuth(token, id);
+    this.props.checkAuth(token, id, timeCheck);
   }
 
   render() {
   let red=this.props.redirect
     if (this.props.redirect === true) {
-      red = <Redirect to="/admin"></Redirect>;
+      red = <Redirect to="/train"></Redirect>;
       setTimeout(()=>this.props.setRed(),100)
     }
     return (
@@ -70,6 +70,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.sign.isAuth)
   return {
     isAuth: state.sign.isAuth,
     token: state.sign.token,
@@ -81,8 +82,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setRed:()=>dispatch({type:"SET_RED"}),
-    checkAuth: (token, id) =>
-      dispatch({ type: "CHECK_AUTH", token: token, id: id }),
+    checkAuth: (token, id, timeCheck) =>
+      dispatch({ type: "CHECK_AUTH", token: token, id: id, timeCheck:timeCheck }),
     theme: (sun) => dispatch({ type: "CHANGE_THEME", sun: sun }),
   };
 };

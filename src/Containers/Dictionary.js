@@ -20,7 +20,8 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import * as actionCreators from "../store/actions/actions";
-
+const im='images/logo.jpg'
+const image ='http://localhost:5004/'+im
 const Ul = style.ul`
   margin:50px auto 0 auto;
   list-style-type:none;
@@ -31,7 +32,7 @@ const Ul = style.ul`
 const Links = style.div`
   position:fixed;
   left:30px;
-  width:30%;
+  width:20%;
   height:30%;
 `
 const Link = style(NavLink)`
@@ -64,6 +65,7 @@ class Dictionary extends Component {
   }
 
   render() {
+    console.log(image)
     return (
       <div>
         <input type='text' onChange={e=>this.props.findWords(e.target.value)}></input>
@@ -77,6 +79,7 @@ class Dictionary extends Component {
         <Ul>
           <li>
             {this.props.hskdata.map((word) => {
+              console.log(word.image)
               return (
                 <div>
                   <Word

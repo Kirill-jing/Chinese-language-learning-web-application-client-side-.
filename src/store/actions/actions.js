@@ -147,12 +147,12 @@ export const signup = (e, username, email, password) => {
   };
   return (dispatch) => {
     axios.put("http://localhost:5004/user/signup", data).then((res) => {
-      dispatch(saveAuth(res.data.token, res.data.userId));
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
-      const remainingMilliseconds = 60 * 60 * 1000;
+      const remainingMilliseconds = 600 * 600 * 1000;
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem("expiryDate", expiryDate.toISOString());
+      dispatch(saveAuth(res.data.token, res.data.userId , expiryDate));
     });
   };
 };
@@ -168,7 +168,7 @@ export const login = (e, logName, logPassword) => {
       dispatch(saveAuth(res.data.token, res.data.id));
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.id);
-      const remainingMilliseconds = 60 * 60 * 1000;
+      const remainingMilliseconds = 600 * 600 * 1000;
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem("expiryDate", expiryDate.toISOString());
     });

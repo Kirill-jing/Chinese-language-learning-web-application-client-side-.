@@ -9,8 +9,25 @@ import Slider from '@material-ui/core/Slider';
 import { styled } from "@material-ui/core/styles";
 
 const CustomSlider = styled(Slider)({
-  width: "200px",
+  width: "400px",
 });
+const CustomDiv=style.div`
+  width:100%;
+  display:flex;
+  position:absolute;
+  top:10vh;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+`
+const Link = style(NavLink)`
+  font-size:18px;
+  color: red;
+  text-decoration: none;
+  &.active {
+    color: black;
+  };
+`;
 
 class Train extends Component {
   componentDidMount() {
@@ -19,25 +36,27 @@ class Train extends Component {
     }
   render() {
     return (
-          <div>
-              <NavLink to='/char-word'>rtgt4g</NavLink>
-              <NavLink to='/audio-char'>rtgt4g</NavLink>
-              <NavLink to='/flip-cards'>flip cards</NavLink>
-            <div>
-              <Typography id="range-slider" gutterBottom>
-                Temperature range
-              </Typography>
-              <CustomSlider
-                value={this.props.sliderVal}
-                min={0}
-                step={1}
-                onChange={this.props.handleChange}
-                max={this.props.length}
-                valueLabelDisplay="auto"
-                aria-labelledby="range-slider"
-              />
-            </div>
-          </div>
+      <CustomDiv>
+        <div>
+          <Typography id="range-slider" gutterBottom>
+            Выберите кол-во слов для тренировки !
+          </Typography>
+          <CustomSlider
+            value={this.props.sliderVal}
+            min={0}
+            step={1}
+            onChange={this.props.handleChange}
+            max={this.props.length}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+          />
+        </div>
+        <div>
+          <Link to='/char-word'>Перевод-иероглиф</Link>
+          <Link to='/audio-char'>Аудио-слово</Link>
+          <Link to='/flip-cards'>Карточки</Link>
+        </div>
+      </CustomDiv>
     );
   }
 }

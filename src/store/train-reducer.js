@@ -23,7 +23,6 @@ const initialState = {
     history:'',
     redirect:false
 
-
 };
 const trainreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -48,12 +47,12 @@ const trainreducer = (state = initialState, action) => {
         limit:action.e[1]
       }
     case actiontype.CHECK_ANSWER:
-    let q=state.cartData[state.count].name===action.check
+    let q=state.cartData[state.count].nameTr===action.check
       return{
         ...state,
         answer:q,
         anim:false,
-        name:state.cartData[state.count].name,
+        name:state.cartData[state.count].nameTr,
         disable:false
       }
     case actiontype.NEXT_QUESTION:
@@ -62,13 +61,11 @@ const trainreducer = (state = initialState, action) => {
         alert('Вы достигли устаноленного вами лимита :)')
       }
       if(b===state.cartData.length){
-        
         return{
           ...state,
           count:0,
           audio:state.cartData[0],
-          disable:false,
-          
+          disable:true,
         }
       }
       let quesAnswer = state.answer===true ?
@@ -97,14 +94,14 @@ const trainreducer = (state = initialState, action) => {
       if(c===state.cartData.length){
         return {
           ...state,
-          anim:true,
-          redirect:true
+          anim:false,
+          redirect:true,
+          disable:true
        }
       }
       return {
         ...state,
         anim:true,
-        
      }
     case actiontype.SET_AUDIO:
       return{

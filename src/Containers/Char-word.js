@@ -37,13 +37,14 @@ const AnimateDiv=style.div`
   animation-fill-mode:forwards;
 `
 const Ques = style.div`
-
 `
 const Inputs = style.div`
-  width:100px;
+
+  width:150px;
 `
 const CustomInp=style.input`
-background-color:${props=>props.value===props.name ? 'green' : 'white'}
+  width:150px;
+  background-color:${props=>props.value===props.name ? 'green' : 'white'}
 `
 class CharWord extends Component {
   componentDidMount() {
@@ -61,22 +62,28 @@ class CharWord extends Component {
           </Ques>
           <Inputs>
             {this.props.arr.map((el,i)=>{
-            let check=el==this.props.br&&this.props.cart.length > 0  ? this.props.cart[this.props.count].name:' '
-            return(
-              <CustomInp name={this.props.name} value={this.props.cart.length> 0 && el!== this.props.br  ? 
-                this.props.cart[Math.floor(this.props.arr[i])].name : check }  type='button'
+              let check=el==this.props.br && 
+              this.props.cart.length > 0 ?
+              this.props.cart[this.props.count].nameTr : ' '
+              return(
+                <CustomInp 
+                  name={this.props.name}
+                  value={this.props.cart.length> 0 &&
+                    el!== this.props.br ? 
+                    this.props.cart[Math.floor(this.props.arr[i])].nameTr : check }  
+                  type='button'
                   onClick={e=>this.props.checkAnswer(e.target.value)}>
-              </CustomInp>
+                </CustomInp>
             )})}
           </Inputs>
           <Button
             disabled={this.props.disable}
             onClick={e=>{
-            this.props.toggleAnim()
-            e.persist()
-            window.setTimeout(()=>this.props.nextQuestion(),400) 
+              this.props.toggleAnim()
+              e.persist()
+              window.setTimeout(()=>this.props.nextQuestion(),400) 
             }}>
-             <ForwardIcon/> 
+              <ForwardIcon/> 
           </Button>
         </AnimateDiv>
       </div>
@@ -86,7 +93,7 @@ class CharWord extends Component {
 }
 
 const mapStateToProps = (state) => {
- console.log(state.train.history)
+ console.log(state.train.answer)
   return {
    cart:state.cart.cartData,
    btn:state.train.btn,

@@ -12,7 +12,6 @@ const Sun = styled(WbSunnyIcon)({
   transition:'0.5s',
   "&:hover": {
     transform: 'scale(1.2)',
-
   }
 });
 
@@ -25,9 +24,11 @@ const MoonHov = styled(Brightness2Icon)({
   }
 });
 
-
+const Image=style.img`
+width:90px;
+height:90px;
+`
 const CustomNav=style.nav`
-
 display:flex;
 width:100%;
 font-size:24px;
@@ -35,14 +36,13 @@ justify-content:center;
 align-items:center;
 height:50px;
 background-color:#F00A0D;
-
 `
 const CustomButton=styled(Button)({
   margin:'0 30px',
   borderRadius:'50%'
 })
 const CustomLink=style(NavLink)`
-color:black;
+  color:black;
   text-decoration:none;
   margin:0 30px;
   &.active {
@@ -58,8 +58,8 @@ const NavLinks = (props) => {
   };
   console.log(props.isAuth)
   return (
-    
     <CustomNav>
+      <Image src={"images/logo.svg"} alt='logo'/>
       <CustomButton
         onClick={() => {
           toggle();
