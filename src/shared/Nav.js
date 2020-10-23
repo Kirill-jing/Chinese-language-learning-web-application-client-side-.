@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 const Sun = styled(WbSunnyIcon)({
-  color: "yellow  ",
+  color: "#F64E0A ",
   transition:'0.5s',
   "&:hover": {
     transform: 'scale(1.2)',
@@ -16,7 +16,7 @@ const Sun = styled(WbSunnyIcon)({
 });
 
 const MoonHov = styled(Brightness2Icon)({
-  color: "#E5F2F2 ",
+  color: "#0A8BF6  ",
   border: "0px",
   transition:'0.5s',
   "&:hover": {
@@ -25,17 +25,17 @@ const MoonHov = styled(Brightness2Icon)({
 });
 
 const Image=style.img`
-width:90px;
-height:90px;
+width:135px;
+height:135px;
 `
 const CustomNav=style.nav`
 display:flex;
 width:100%;
-font-size:24px;
+font-size:26px;
 justify-content:center;
 align-items:center;
-height:50px;
-background-color:#F00A0D;
+height:100px;
+background-color:whitesmoke;
 `
 const CustomButton=styled(Button)({
   margin:'0 30px',
@@ -47,7 +47,7 @@ const CustomLink=style(NavLink)`
   margin:0 30px;
   &.active {
     text-shadow: 0px 0px 6px yellow 0 0 1em yellow ;
-    color : yellow;
+    color : #F64E0A ;
   };
 `
 const NavLinks = (props) => {
@@ -68,6 +68,9 @@ const NavLinks = (props) => {
       >
         {sun ? <Sun /> : <MoonHov />}
       </CustomButton>
+      <CustomLink to="/" exact>
+        Главная
+      </CustomLink>
       <CustomLink to="/dictionary" exact>
         Словарь
       </CustomLink>

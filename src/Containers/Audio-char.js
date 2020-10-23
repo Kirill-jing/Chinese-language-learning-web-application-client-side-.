@@ -6,7 +6,6 @@ import { NavLink,BrowserRouter, Route, } from "react-router-dom";
 import CharWord from './Char-word'
 import HelpIcon from '@material-ui/icons/Help';
 import ForwardIcon from '@material-ui/icons/Forward';
-
 import Button from "@material-ui/core/Button";
 
 class AudioChar extends Component {

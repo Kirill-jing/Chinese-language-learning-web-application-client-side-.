@@ -10,6 +10,7 @@ import { styled } from "@material-ui/core/styles";
 
 const CustomSlider = styled(Slider)({
   width: "400px",
+
 });
 const CustomDiv=style.div`
   width:100%;

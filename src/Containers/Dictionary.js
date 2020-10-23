@@ -20,14 +20,31 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import * as actionCreators from "../store/actions/actions";
-const im='images/logo.jpg'
-const image ='http://localhost:5004/'+im
+
+const CustInput = styled(TextField)({
+
+  borderBottom: "1px solid #e2e2e1",
+  "& label": {
+    color: "black",
+    fontSize:'14px'
+  },
+  "& label.Mui-focused": {
+    color: "red",
+  },
+  "&.MuiInput-underline:after": {
+    borderBottomColor: "black",
+  },
+});
+
 const Ul = style.ul`
   margin:50px auto 0 auto;
   list-style-type:none;
   position:absolute;
   width:100%;
-
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  align-items:center;
 `;
 const Links = style.div`
   position:fixed;
@@ -35,51 +52,74 @@ const Links = style.div`
   width:20%;
   height:30%;
 `
+
+const Search=style.div`
+  width:50vw;
+  display:flex;
+  justify-content:space-around;
+  border-bottom
+`
 const Link = style(NavLink)`
   display:flex;
   font-size:28px;
   align-items:center;
   justify-content:center;
-  color: red;
+  color: black;
   position:relative;
   width:100%;
   height:100%;
+  border-radius:15px;
+  border:2px solid black;
   text-decoration: none;
   &.active {
-    color: black;
+    color: red;
+    border:3px solid red;
   };
 `;
 const StyledDiv = style.div`
   margin-top:30px;
   position:relative;
   display:flex;
-  border-radius:15px;
   width:20vw;
   height:15vh;
-  border:1px solid red;
 `;
+
+const CustBtn=styled(Button)({
+  transition:'0.4s',
+  opacity:props=>props.amount ? 1 : 0
+
+})
 
 class Dictionary extends Component {
   componentDidMount() {
     this.props.onStoreWord();
   }
 
+  componentDidUpdate(){
+    this.props.checkAmount()
+  }
+
   render() {
-    console.log(image)
     return (
       <div>
-        <input type='text' onChange={e=>this.props.findWords(e.target.value)}></input>
-        <input type='text' onChange={e=>this.props.findChar(e.target.value)}></input>
-        <button
-          onClick={(e) =>
-            this.props.addMultiple(this.props.checkedArr, this.props.token)
-          }
-        >
-        </button>
+
         <Ul>
+          <Search>
+            <CustInput label='Найдите слово' type='text' onChange={e=>this.props.findWords(e.target.value)}></CustInput>
+            <CustInput label="Найдите иероглиф" type='text' onChange={e=>this.props.findChar(e.target.value)}></CustInput>
+            <CustBtn
+              amount={this.props.amount>0}
+              color='secondary'
+              variant='contained'
+              onClick={(e) =>
+                this.props.addMultiple(this.props.checkedArr, this.props.token)
+              }
+            >
+              Добавить
+            </CustBtn>
+          </Search>
           <li>
             {this.props.hskdata.map((word) => {
-              console.log(word.image)
               return (
                 <div>
                   <Word
@@ -155,7 +195,9 @@ class Dictionary extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.res.hskdata)
+  console.log(state.res.amount)
+  console.log(state.res.checkedArr)
+
   return {
     stored: state.res.data,
     details: state.res.details,
@@ -164,6 +206,8 @@ const mapStateToProps = (state) => {
     token: state.sign.token,
     checkedVal: state.res.checkedVal,
     checkedArr: state.res.checkedArr,
+    animbut:state.res.animbut,
+    amount:state.res.amount
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -180,6 +224,7 @@ const mapDispatchToProps = (dispatch) => {
     close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),
     hsk3: () => dispatch({ type: "HSK_3" }),
+    checkAmount:()=>dispatch({type:'CHECK_AMOUNT'})
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dictionary);

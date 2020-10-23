@@ -48,6 +48,9 @@ const CustomDel = styled(DeleteIcon)({
     color: "red ",
   },
 });
+const ButtonDel=styled(Button)({
+  marginLeft:'2vw'
+})
 const Add = styled(AddCircleIcon)({
   color: "#8987A0",
   "&:hover": {
@@ -81,15 +84,17 @@ let word = (props) => {
       </DetailsHov>
       <div>{props.type}</div>
       <Image src={props.image}></Image>
+      {!props.showDelete ?
       <Button onClick={props.addToLearn}>
         <Add fontSize="large" />
       </Button>
+      : null}
       {props.showDelete ? (
-        <Button onClick={() => { 
+        <ButtonDel onClick={() => { 
           // props.instDelete()
          return props.delete()}}>
           <CustomDel />
-        </Button>
+        </ButtonDel>
       ) : null}
     </CustFlex>
   );

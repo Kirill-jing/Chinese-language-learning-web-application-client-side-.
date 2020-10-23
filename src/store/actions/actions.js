@@ -47,6 +47,7 @@ export const CHANGE_INNER="CHANGE_INNER"
 export const NEXT_FLIP="NEXT_FLIP"
 export const ANIM_OPAC="ANIM_OPAC"
 export const CHANGE_DIR="CHANGE_DIR"
+export const CHECK_AMOUNT="CHECK_AMOUNT"
 
 export const postResult = (
   e,
@@ -149,7 +150,7 @@ export const signup = (e, username, email, password) => {
     axios.put("http://localhost:5004/user/signup", data).then((res) => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
-      const remainingMilliseconds = 600 * 600 * 1000;
+      const remainingMilliseconds = 600 * 60 * 1000;
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem("expiryDate", expiryDate.toISOString());
       dispatch(saveAuth(res.data.token, res.data.userId , expiryDate));
@@ -168,7 +169,7 @@ export const login = (e, logName, logPassword) => {
       dispatch(saveAuth(res.data.token, res.data.id));
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.id);
-      const remainingMilliseconds = 600 * 600 * 1000;
+      const remainingMilliseconds = 600 * 60 * 1000;
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem("expiryDate", expiryDate.toISOString());
     });

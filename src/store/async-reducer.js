@@ -8,7 +8,9 @@ const initialState = {
   regData:[],
   checkedVal: false,
   checkedArr: [],
-  example:0
+  example:0,
+  animbut:false,
+  amount:0
 };
 const asyncreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -19,8 +21,14 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.words,
-        hskdata:hsk
+        hskdata:hsk,
+        regData:hsk
       };
+    // case actiontype.CHECK_AMOUNT:
+    //   return{
+    //     ...state,
+    //     amount:state.checkedArr.length
+    //   }
     case actiontype.FIND_WORDS:
       let arr=[...state.regData]
       let quesWords=arr.filter(el=>el.nameTr.match(action.val))
@@ -38,16 +46,22 @@ const asyncreducer = (state = initialState, action) => {
     case actiontype.ADD_CHECK:
       let newArr = state.checkedArr;
       newArr.push(action.value);
+      let newAm=state.amount+1
       if (action.check === true) {
         return {
           ...state,
           checkedArr: newArr,
+          animbut:true,
+          amount:newAm
+
         };
       }
       let jArr = state.checkedArr.filter((el) => el != action.value);
+      let oldAm=state.amount-1
       return {
         ...state,
         checkedArr: jArr,
+        amount:oldAm
       };
 
     case actiontype.OPEN:
