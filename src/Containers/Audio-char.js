@@ -7,6 +7,22 @@ import CharWord from './Char-word'
 import HelpIcon from '@material-ui/icons/Help';
 import ForwardIcon from '@material-ui/icons/Forward';
 import Button from "@material-ui/core/Button";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp"
+
+const CustomDiv=style.div`
+  display:flex;
+  justify-content:center;
+
+  margin-top:20vh;
+`
+
+const InnerDiv=style.div`
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  height:20vh;
+  width:18vw;
+`
 
 class AudioChar extends Component {
     componentDidMount() {
@@ -14,13 +30,23 @@ class AudioChar extends Component {
         this.props.onStoreCart(tok);
     }
   render() {
-    let audio= this.props.cart.length>0 ? new Audio("http://localhost:5004/" + this.props.audio) :' '
+    let audio = this.props.cart.length>0 ? new Audio("http://localhost:5004/" + this.props.audio) : ' '
     return (
-        <div>
-            <Button onClick={() => audio.play()}>play</Button>
-            <input value={this.props.inputVal} onChange={e=>this.props.checkChar(e.target.value)} type='text'></input>
-            <Button onClick={this.props.audCheck ? this.props.nextAudio:this.props.giveAnswer}>{this.props.audCheck ? <ForwardIcon/>:<HelpIcon/>}</Button>
-        </div>
+      <CustomDiv>
+        <InnerDiv>
+          <Button onClick={() => audio.play()}>
+            <VolumeUpIcon/>
+          </Button>
+          <input 
+            value={this.props.inputVal} 
+            onChange={e=>this.props.checkChar(e.target.value)} type='text'>
+          </input>
+          <Button 
+            onClick={this.props.audCheck ? this.props.nextAudio:this.props.giveAnswer}>
+              {this.props.audCheck ? <ForwardIcon/>:<HelpIcon/>}
+          </Button>
+        </InnerDiv>
+      </CustomDiv>
     );
   }
 }

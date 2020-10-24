@@ -36,6 +36,9 @@ justify-content:center;
 align-items:center;
 height:100px;
 background-color:whitesmoke;
+@media (max-width:500px){
+  display:none;
+}
 `
 const CustomButton=styled(Button)({
   margin:'0 30px',
@@ -56,7 +59,6 @@ const NavLinks = (props) => {
   let toggle = () => {
     moon(!sun);
   };
-  console.log(props.isAuth)
   return (
     <CustomNav>
       <Image src={"images/logo.svg"} alt='logo'/>

@@ -38,7 +38,7 @@ const trainreducer = (state = initialState, action) => {
         history:action.history
       };
     case actiontype.HANDLE_SLIDER:
-      console.log(action.e)
+
       return{
         sliderVal:action.e,
         audcount:action.e[0],
@@ -47,7 +47,7 @@ const trainreducer = (state = initialState, action) => {
         limit:action.e[1]
       }
     case actiontype.CHECK_ANSWER:
-    let q=state.cartData[state.count].nameTr===action.check
+      let q=state.cartData[state.count].nameTr===action.check
       return{
         ...state,
         answer:q,

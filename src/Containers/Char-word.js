@@ -93,7 +93,7 @@ class CharWord extends Component {
 }
 
 const mapStateToProps = (state) => {
- console.log(state.train.answer)
+  console.log(state.train.arr)
   return {
    cart:state.cart.cartData,
    btn:state.train.btn,

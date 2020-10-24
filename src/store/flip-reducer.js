@@ -8,7 +8,8 @@ const initialState = {
     flipBtn:undefined,
     inner:false,
     opac:false,
-    tranOrChar:true
+    tranOrChar:true,
+    redirect:false
 };
 const flipreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -19,7 +20,6 @@ const flipreducer = (state = initialState, action) => {
       };
     case actiontype.CHANGE_DIR:
       let newDir=!state.tranOrChar
-      console.log(newDir)
       return{
         ...state,
         tranOrChar:newDir
@@ -42,12 +42,28 @@ const flipreducer = (state = initialState, action) => {
       }
     case actiontype.NEXT_FLIP:
       let b = state.count+1
+      let length=state.cartData.length
+      if(b == length){
+        return {
+          ...state,
+          count:0,
+          redirect:true,
+          flipBtn:false,
+          inner:false,
+          opac:false
+        }
+      }
       return {
         ...state,
         count:b,
         flipBtn:false,
         inner:false,
       }
+    case actiontype.SET_RED:
+      return{
+        ...state,
+        redirect:false
+    }
   }
   return state;
 };

@@ -14,6 +14,7 @@ import CharWord from "./Containers/Char-word"
 import Train from './Containers/Train'
 import AudioChar from './Containers/Audio-char'
 import Flip from './Containers/Flip-cards'
+
 let CustomMain = style.main`
 background:${(props) => (props.alt ? "#0F0D28 " : "white ")};
 position:absolute;
@@ -36,7 +37,7 @@ class App extends Component {
 
   render() {
   let red=this.props.redirect
-    if (this.props.redirect === true) {
+    if (this.props.redirect === true||this.props.redirectFlip===true) {
       red = <Redirect to="/train"></Redirect>;
       setTimeout(()=>this.props.setRed(),100)
     }
@@ -76,7 +77,8 @@ const mapStateToProps = (state) => {
     token: state.sign.token,
     userId: state.sign.userId,
     sun: state.sign.sun,
-    redirect:state.train.redirect
+    redirect:state.train.redirect,
+    redirectFlip:state.flip.redirect
   };
 };
 const mapDispatchToProps = (dispatch) => {

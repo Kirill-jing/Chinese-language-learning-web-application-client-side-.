@@ -102,7 +102,6 @@ class Dictionary extends Component {
   render() {
     return (
       <div>
-
         <Ul>
           <Search>
             <CustInput label='Найдите слово' type='text' onChange={e=>this.props.findWords(e.target.value)}></CustInput>

@@ -4,6 +4,8 @@ import * as actionCreators from "../store/actions/actions";
 import style,{keyframes,css} from "styled-components";
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import Button from "@material-ui/core/Button";
+import { styled } from "@material-ui/core/styles";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 
 const flip = keyframes`
   0% {
@@ -13,6 +15,8 @@ const flip = keyframes`
     transform:rotateY(180deg)
   }
 `
+
+
 
 const animation = props =>
   css`
@@ -34,27 +38,53 @@ const animOpacity = props =>
   css`
     ${opacity};
   `
-const CustomBtn=style.button`
-transform:${props=>props.rotate?`rotateY(180deg)`:''}
+const CustomIcon = styled(VolumeUpIcon)({
+  transform:props=>props.rotate?'rotateY(180deg)':'',
+  color: 'FF0000 ',
+  "&:hover": {
+    color: "#B91A1A ",
+  },
+});
+const CustomBtn=styled(Button)({
+  transform:props=>props.rotate?'rotateY(180deg)':'',
+})
+
+const CustomP=style.p`
+  font-size:26px;
+  transform:${props=>props.rotate?'rotateY(180deg)':''}
 `
+const CustomImg=style.img`
+width:17vw;
+height:20vh;
+border-radius:10px;
+transform:${props=>props.rotate?'rotateY(180deg)':''}
+`
+
 const MainDiv=style.div`
-opacity:1;
-animation-duration:.8s;
-animation-fill-mode:forwards;
-animation-name:${props=>props.opac ? animOpacity : ' '}
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  height:100%;
+  margin-top:30vh;
+  opacity:1;
+  animation-duration:.8s;
+  animation-fill-mode:forwards;
+  animation-name:${props=>props.opac ? animOpacity : ' '}
 `
 const CustomDiv=style.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-background-color:blue;
-width:100px;
-height:100px;
-opacity:1;
-animation-duration:.8s;
-animation-fill-mode:forwards;
-animation-name:${props=>props.animate ? animation : ' '}
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background-color:#7085C2 ;
+  width:30vw;
+  height:40vh;
+  border-radius:15px;
+  opacity:1;
+  animation-duration:.8s;
+  animation-fill-mode:forwards;
+  animation-name:${props=>props.animate ? animation : ' '}
 `
 
 class FlipCards extends Component {
@@ -65,39 +95,48 @@ class FlipCards extends Component {
     }
      
   render() {
+    let audio = new Audio('http://localhost:5004/'+this.props.cart[this.props.count].audio);
     return (
       <MainDiv opac={this.props.opac}>
         <CustomDiv animate={this.props.flipBtn}>
-          <p>
+          <CustomP rotate={this.props.inner}>
             {this.props.inner ?
               (this.props.tranOrChar ?
-              this.props.cart[this.props.count].nameTr :
-              this.props.cart[this.props.count].name ) :
+                this.props.cart[this.props.count].nameTr :
+                this.props.cart[this.props.count].name ) :
               (this.props.tranOrChar ? 
-              this.props.cart[this.props.count].name :
-              this.props.cart[this.props.count].nameTr) 
+                this.props.cart[this.props.count].name :
+                this.props.cart[this.props.count].nameTr) 
             }
-          </p>
+          </CustomP>
+          <Button  onClick={() => audio.play()}>
+            <CustomIcon rotate={this.props.inner} />
+          </Button>
+          <CustomImg rotate={this.props.inner} src={'http://localhost:5004/'+this.props.cart[this.props.count].image}></CustomImg>
           <Button onClick={()=> this.props.changeDirection()}>
             <ImportExportIcon/>
           </Button>
           {this.props.inner ?
-            <CustomBtn 
-                rotate={this.props.inner}
-                onClick={e=>{
-                  this.props.animOpac()
-                  e.persist()
-                  window.setTimeout(()=>this.props.nextFlip(),400) 
-               }}
+            <CustomBtn
+              variant='contained'
+              color='secondary'
+              rotate={this.props.inner}
+              onClick={e=>{
+                this.props.animOpac()
+                e.persist()
+                window.setTimeout(()=>this.props.nextFlip(),400) 
+              }}
             >next
             </CustomBtn> :
             <CustomBtn 
+              variant='contained'
+              color='secondary'
               onClick={e=>{
                 this.props.flipCard()
                 e.persist()
                 window.setTimeout(()=>this.props.changeInner(),250)
             }}>
-            check
+            перевернуть
             </CustomBtn>
           }
         </CustomDiv>
@@ -107,6 +146,7 @@ class FlipCards extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.flip.count)
   return {
     cart:state.flip.cartData,
     btn:state.train.btn,
