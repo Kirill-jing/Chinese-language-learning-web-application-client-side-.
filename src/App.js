@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch , Redirect} from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import SignUp from "./Containers/SignUp";
 import Admin from "./Containers/Admin";
 import Dictionary from "./Containers/Dictionary";
@@ -10,10 +10,10 @@ import Main from "./Containers/Main";
 import * as actionCreators from "./store/actions/actions";
 import style from "styled-components";
 import NavLinks from "./shared/Nav";
-import CharWord from "./Containers/Char-word"
-import Train from './Containers/Train'
-import AudioChar from './Containers/Audio-char'
-import Flip from './Containers/Flip-cards'
+import CharWord from "./Containers/Char-word";
+import Train from "./Containers/Train";
+import AudioChar from "./Containers/Audio-char";
+import Flip from "./Containers/Flip-cards";
 
 let CustomMain = style.main`
 background:${(props) => (props.alt ? "#0F0D28 " : "white ")};
@@ -30,24 +30,26 @@ class App extends Component {
     if (!token || !expiryDate) {
       return;
     }
-    let timeCheck=Date.parse(localStorage.getItem("expiryDate")) - new Date().getTime()<=0
+    let timeCheck =
+      Date.parse(localStorage.getItem("expiryDate")) - new Date().getTime() <=
+      0;
     let id = localStorage.getItem("userId");
     this.props.checkAuth(token, id, timeCheck);
   }
 
   render() {
-  let red=this.props.redirect
-    if (this.props.redirect === true||this.props.redirectFlip===true) {
+    let red = this.props.redirect;
+    if (this.props.redirect === true || this.props.redirectFlip === true) {
       red = <Redirect to="/train"></Redirect>;
-      setTimeout(()=>this.props.setRed(),100)
+      setTimeout(() => this.props.setRed(), 100);
     }
     return (
       <CustomMain alt={this.props.sun}>
         <BrowserRouter>
           <div>
-            <NavLinks 
+            <NavLinks
               isAuth={this.props.isAuth}
-              theme={(sun) => this.props.theme(sun)} 
+              theme={(sun) => this.props.theme(sun)}
             />
             <Switch>
               {red}
@@ -71,21 +73,26 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.sign.isAuth)
+  console.log(state.sign.isAuth);
   return {
     isAuth: state.sign.isAuth,
     token: state.sign.token,
     userId: state.sign.userId,
     sun: state.sign.sun,
-    redirect:state.train.redirect,
-    redirectFlip:state.flip.redirect
+    redirect: state.train.redirect,
+    redirectFlip: state.flip.redirect,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    setRed:()=>dispatch({type:"SET_RED"}),
+    setRed: () => dispatch({ type: "SET_RED" }),
     checkAuth: (token, id, timeCheck) =>
-      dispatch({ type: "CHECK_AUTH", token: token, id: id, timeCheck:timeCheck }),
+      dispatch({
+        type: "CHECK_AUTH",
+        token: token,
+        id: id,
+        timeCheck: timeCheck,
+      }),
     theme: (sun) => dispatch({ type: "CHANGE_THEME", sun: sun }),
   };
 };

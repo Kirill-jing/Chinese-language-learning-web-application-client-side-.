@@ -22,11 +22,10 @@ import Fade from "@material-ui/core/Fade";
 import * as actionCreators from "../store/actions/actions";
 
 const CustInput = styled(TextField)({
-
   borderBottom: "1px solid #e2e2e1",
   "& label": {
     color: "black",
-    fontSize:'14px'
+    fontSize: "14px",
   },
   "& label.Mui-focused": {
     color: "red",
@@ -51,14 +50,14 @@ const Links = style.div`
   left:30px;
   width:20%;
   height:30%;
-`
+`;
 
-const Search=style.div`
+const Search = style.div`
   width:50vw;
   display:flex;
   justify-content:space-around;
   border-bottom
-`
+`;
 const Link = style(NavLink)`
   display:flex;
   font-size:28px;
@@ -84,19 +83,18 @@ const StyledDiv = style.div`
   height:15vh;
 `;
 
-const CustBtn=styled(Button)({
-  transition:'0.4s',
-  opacity:props=>props.amount ? 1 : 0
-
-})
+const CustBtn = styled(Button)({
+  transition: "0.4s",
+  opacity: (props) => (props.amount ? 1 : 0),
+});
 
 class Dictionary extends Component {
   componentDidMount() {
     this.props.onStoreWord();
   }
 
-  componentDidUpdate(){
-    this.props.checkAmount()
+  componentDidUpdate() {
+    this.props.checkAmount();
   }
 
   render() {
@@ -104,12 +102,20 @@ class Dictionary extends Component {
       <div>
         <Ul>
           <Search>
-            <CustInput label='Найдите слово' type='text' onChange={e=>this.props.findWords(e.target.value)}></CustInput>
-            <CustInput label="Найдите иероглиф" type='text' onChange={e=>this.props.findChar(e.target.value)}></CustInput>
+            <CustInput
+              label="Найдите слово"
+              type="text"
+              onChange={(e) => this.props.findWords(e.target.value)}
+            ></CustInput>
+            <CustInput
+              label="Найдите иероглиф"
+              type="text"
+              onChange={(e) => this.props.findChar(e.target.value)}
+            ></CustInput>
             <CustBtn
-              amount={this.props.amount>0}
-              color='secondary'
-              variant='contained'
+              amount={this.props.amount > 0}
+              color="secondary"
+              variant="contained"
               onClick={(e) =>
                 this.props.addMultiple(this.props.checkedArr, this.props.token)
               }
@@ -194,8 +200,8 @@ class Dictionary extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.res.amount)
-  console.log(state.res.checkedArr)
+  console.log(state.res.amount);
+  console.log(state.res.checkedArr);
 
   return {
     stored: state.res.data,
@@ -205,14 +211,14 @@ const mapStateToProps = (state) => {
     token: state.sign.token,
     checkedVal: state.res.checkedVal,
     checkedArr: state.res.checkedArr,
-    animbut:state.res.animbut,
-    amount:state.res.amount
+    animbut: state.res.animbut,
+    amount: state.res.amount,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    findWords:val=>dispatch({type:'FIND_WORDS',val:val}),
-    findChar:val=>dispatch({type:'FIND_CHAR', val:val}),
+    findWords: (val) => dispatch({ type: "FIND_WORDS", val: val }),
+    findChar: (val) => dispatch({ type: "FIND_CHAR", val: val }),
     addMultiple: (checkedArr, token) =>
       dispatch(actionCreators.addToCart(checkedArr, token)),
     addToLearn: (id, token) => dispatch(actionCreators.addToLearn(id, token)),
@@ -223,7 +229,7 @@ const mapDispatchToProps = (dispatch) => {
     close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),
     hsk3: () => dispatch({ type: "HSK_3" }),
-    checkAmount:()=>dispatch({type:'CHECK_AMOUNT'})
+    checkAmount: () => dispatch({ type: "CHECK_AMOUNT" }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dictionary);

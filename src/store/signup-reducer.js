@@ -34,7 +34,6 @@ const signupreducer = (state = initialState, action) => {
         userId: action.userId,
       };
     case actiontype.CHECK_AUTH:
-      console.log(action.timeCheck)
       return {
         ...state,
         token: action.token,

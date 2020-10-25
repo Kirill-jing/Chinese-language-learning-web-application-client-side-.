@@ -37,14 +37,13 @@ border:1px solid black;
 `;
 
 class Cart extends Component {
-componentDidMount(){
-  let tok = localStorage.getItem("token");
-  this.props.onStoreCart(tok);
-}
+  componentDidMount() {
+    let tok = localStorage.getItem("token");
+    this.props.onStoreCart(tok);
+  }
   render() {
     return (
       <div>
-        
         {this.props.cartData !== undefined ? (
           <Ul>
             <li>
@@ -97,8 +96,15 @@ componentDidMount(){
             <Link onClick={this.props.hsk3} to="/dictionary/3" exact>
               HSK3
             </Link>
-            <button onClick={()=>
-              this.props.removeMultiple(this.props.cartData,this.props.checkedArr,this.props.token)}>
+            <button
+              onClick={() =>
+                this.props.removeMultiple(
+                  this.props.cartData,
+                  this.props.checkedArr,
+                  this.props.token
+                )
+              }
+            >
               Remove Mult
             </button>
           </StyledDiv>
@@ -142,7 +148,7 @@ const mapStateToProps = (state) => {
     modalWord: state.res.modalWord,
     cartData: state.cart.cartData,
     token: state.sign.token,
-    checkedArr:state.cart.checkedArr
+    checkedArr: state.cart.checkedArr,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -151,11 +157,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.deleteCart(cartData, token, id)),
     onStoreCart: (token, cart) =>
       dispatch(actionCreators.saveCart(token, cart)),
-    removeMultiple:(cartData,removeArr,token) =>
-      dispatch(actionCreators.removeMultiple(cartData,removeArr,token)),
+    removeMultiple: (cartData, removeArr, token) =>
+      dispatch(actionCreators.removeMultiple(cartData, removeArr, token)),
     addCheck: (value, check) =>
       dispatch({ type: "ADD_CART_CHECK", value: value, check: check }),
-    instDelete:(cart,id)=> dispatch({type:'INST_DELETE'}) ,
+    instDelete: (cart, id) => dispatch({ type: "INST_DELETE" }),
     open: (id) => dispatch({ type: "OPEN", id: id }),
     close: () => dispatch({ type: "CLOSE" }),
     hsk4: () => dispatch({ type: "HSK_4" }),

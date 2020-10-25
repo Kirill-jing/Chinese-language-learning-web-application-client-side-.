@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/actions";
-import style,{keyframes,css} from "styled-components";
-import { NavLink,BrowserRouter, Route, } from "react-router-dom";
-import CharWord from './Char-word'
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import style, { keyframes, css } from "styled-components";
+import { NavLink, BrowserRouter, Route } from "react-router-dom";
+import CharWord from "./Char-word";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
 import { styled } from "@material-ui/core/styles";
 
 const CustomSlider = styled(Slider)({
   width: "400px",
-
 });
-const CustomDiv=style.div`
+const CustomDiv = style.div`
   width:100%;
   display:flex;
   position:absolute;
@@ -20,7 +19,7 @@ const CustomDiv=style.div`
   flex-direction:column;
   justify-content:center;
   align-items:center;
-`
+`;
 const Link = style(NavLink)`
   font-size:18px;
   color: red;
@@ -32,9 +31,9 @@ const Link = style(NavLink)`
 
 class Train extends Component {
   componentDidMount() {
-    let tok = localStorage.getItem('token')
+    let tok = localStorage.getItem("token");
     this.props.onStoreCart(tok);
-    }
+  }
   render() {
     return (
       <CustomDiv>
@@ -53,9 +52,9 @@ class Train extends Component {
           />
         </div>
         <div>
-          <Link to='/char-word'>Перевод-иероглиф</Link>
-          <Link to='/audio-char'>Аудио-слово</Link>
-          <Link to='/flip-cards'>Карточки</Link>
+          <Link to="/char-word">Перевод-иероглиф</Link>
+          <Link to="/audio-char">Аудио-слово</Link>
+          <Link to="/flip-cards">Карточки</Link>
         </div>
       </CustomDiv>
     );
@@ -63,21 +62,18 @@ class Train extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.train.arr)
   return {
-   cart:state.cart.cartData,
-   count:state.train.count,
-   length:state.cart.length,
-   sliderVal:state.train.sliderVal
+    cart: state.cart.cartData,
+    count: state.train.count,
+    length: state.cart.length,
+    sliderVal: state.train.sliderVal,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onStoreCart: (token
-      , cart) =>
-    dispatch(actionCreators.saveCart(token, cart)),
-    handleChange:(val,e)=>dispatch({type:"HANDLE_SLIDER",e:e})
-    
+    onStoreCart: (token, cart) =>
+      dispatch(actionCreators.saveCart(token, cart)),
+    handleChange: (val, e) => dispatch({ type: "HANDLE_SLIDER", e: e }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Train);
