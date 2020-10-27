@@ -75,7 +75,7 @@ export const postResult = (
   data.append("image", image);
   data.append("audio", audio);
   return (dispatch) => {
-    axios.post("http://localhost:5004/admin/post-ex", data);
+    axios.post(process.env.REACT_APP_URL + "admin/post-ex", data);
   };
 };
 
@@ -121,7 +121,7 @@ export const filterMultiple=(newArr)=>{
 export const saveWords = () => {
   return (dispatch) => {
     axios
-      .get("http://localhost:5004/admin/get-word")
+      .get(process.env.REACT_APP_URL + "admin/get-word")
       .then((words) => dispatch(save(words.data.words)));
   };
 };
@@ -131,7 +131,7 @@ export const addToLearn = (id, token) => {
   console.log(id);
   return (dispatch) => {
     console.log(token);
-    axios.post(`http://localhost:5004/admin/add-cart/${id}`, data, {
+    axios.post(process.env.REACT_APP_URL + `admin/add-cart/${id}`, data, {
       headers: {
         Authorization: "bearer " + token,
       },
@@ -147,7 +147,7 @@ export const signup = (e, username, email, password) => {
     password: password,
   };
   return (dispatch) => {
-    axios.put("http://localhost:5004/user/signup", data).then((res) => {
+    axios.put(process.env.REACT_APP_URL + "user/signup", data).then((res) => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
       const remainingMilliseconds = 600 * 60 * 1000;
@@ -165,7 +165,7 @@ export const login = (e, logName, logPassword) => {
     password: logPassword,
   };
   return (dispatch) => {
-    axios.post("http://localhost:5004/user/login", data).then((res) => {
+    axios.post(process.env.REACT_APP_URL + "user/login", data).then((res) => {
       dispatch(saveAuth(res.data.token, res.data.id));
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.id);
@@ -179,7 +179,7 @@ export const login = (e, logName, logPassword) => {
 export const saveCart = (token,history) => {
   return (dispatch) => {
     axios
-      .get("http://localhost:5004/admin/get-cart", {
+      .get(process.env.REACT_APP_URL + "admin/get-cart", {
         headers: {
           Authorization: "bearer " + token,
         },
@@ -193,7 +193,7 @@ export const addToCart = (checkedArr, token) => {
     checkedArr: checkedArr,
   };
   return (dispatch) => {
-    axios.post("http://localhost:5004/admin//multiple-words", data, {
+    axios.post(process.env.REACT_APP_URL + "admin//multiple-words", data, {
       headers: {
         Authorization: "bearer " + token,
       },
@@ -206,7 +206,7 @@ export const deleteCart = (cartData, token, id) => {
   let data = null;
   return (dispatch) => {
     axios
-      .post("http://localhost:5004/admin/delete-word/" + id, data, {
+      .post(process.env.REACT_APP_URL + "admin/delete-word/" + id, data, {
         headers: {
           Authorization: "bearer " + token,
         },
@@ -223,7 +223,7 @@ export const removeMultiple=(cartData,removeArr,token)=>{
       removeArr:removeArr
     }
   return dispatch=>{
-    axios.post('http://localhost:5004/admin/delete-multwords',data,{
+    axios.post(process.env.REACT_APP_URL + 'admin/delete-multwords',data,{
       headers: {
         Authorization: "bearer " + token,
       },

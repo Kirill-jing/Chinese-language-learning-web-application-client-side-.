@@ -66,7 +66,7 @@ class AudioChar extends Component {
   render() {
     let audio =
       this.props.cart.length > 0
-        ? new Audio("http://localhost:5004/" + this.props.audio)
+        ? new Audio(process.env.REACT_APP_URL + this.props.audio)
         : " ";
     return (
       <CustomDiv>

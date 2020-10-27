@@ -58,10 +58,10 @@ const Add = styled(AddCircleIcon)({
   },
 });
 const Image = style.img`
-width:100px;
-height:70px;
-border-radius:5px;
-margin-left:30px
+  width:100px;
+  height:70px;
+  border-radius:5px;
+  margin-left:30px
 `;
 let word = (props) => {
   let audio = new Audio(props.audio);

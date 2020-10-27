@@ -17,8 +17,13 @@ const Sun = styled(WbSunnyIcon)({
 });
 
 const BurgerButton = styled(Button)({
+  "@media(min-width:500px)": {
+    display: "none",
+  },
   position: "absolute",
   top: 0,
+  transition: ".3s",
+  opacity: (props) => (props.animate ? 0 : 1),
   zIndex: 101,
 });
 
@@ -80,7 +85,7 @@ const NavLinks = (props) => {
   };
   return (
     <div>
-      <BurgerButton onClick={() => setOpen(true)}>
+      <BurgerButton animate={open} onClick={() => setOpen(true)}>
         <MenuIcon />
       </BurgerButton>
       <CustomNav animate={open}>

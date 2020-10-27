@@ -23,10 +23,10 @@ const loginreducer = (state = initialState, action) => {
     case actiontype.AUTH:
       return {
         ...state,
-        isAuth:true,
-        token:action.token,
-        userId:action.userId
-      }
+        isAuth: true,
+        token: action.token,
+        userId: action.userId,
+      };
   }
   return state;
 };

@@ -114,7 +114,8 @@ class FlipCards extends Component {
           <CustomImg
             rotate={this.props.inner}
             src={
-              "http://localhost:5004/" + this.props.cart[this.props.count].image
+              process.env.REACT_APP_URL +
+              this.props.cart[this.props.count].image
             }
           ></CustomImg>
           <Button onClick={() => this.props.changeDirection()}>

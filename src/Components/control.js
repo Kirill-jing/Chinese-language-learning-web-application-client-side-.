@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-let Control=(props)=>{
-return (<div onClick={props.clicked}>{props.label}</div>)
-}
+let Control = (props) => {
+  return <div onClick={props.clicked}>{props.label}</div>;
+};
 
-export default Control
+export default Control;

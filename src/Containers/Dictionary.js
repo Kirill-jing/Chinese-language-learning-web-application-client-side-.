@@ -141,8 +141,8 @@ class Dictionary extends Component {
                     exampleTr={word.exampleTr}
                     examplePinin={word.examplePinin}
                     type={word.type}
-                    image={"http://localhost:5004/" + word.image}
-                    audio={"http://localhost:5004/" + word.audio}
+                    image={process.env.REACT_APP_URL + + word.image}
+                    audio={process.env.REACT_APP_URL + word.audio}
                     details={this.props.details}
                     openModal={() => this.props.open(word._id)}
                     closeModal={this.props.close}
@@ -189,8 +189,8 @@ class Dictionary extends Component {
               exampleTr={this.props.modalWord.exampleTr}
               examplePinin={this.props.modalWord.examplePinin}
               type={this.props.modalWord.type}
-              image={"http://localhost:5004/" + this.props.modalWord.image}
-              audio={"http://localhost:5004/" + this.props.modalWord.audio}
+              image={process.env.REACT_APP_URL + this.props.modalWord.image}
+              audio={process.env.REACT_APP_URL + this.props.modalWord.audio}
             />
           </Fade>
         </Modal>
