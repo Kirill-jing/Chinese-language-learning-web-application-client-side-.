@@ -94,7 +94,7 @@ class FlipCards extends Component {
 
   render() {
     let audio = new Audio(
-      "http://localhost:5004/" + this.props.cart[this.props.count].audio
+      process.env.REACT_APP_URL + this.props.cart[this.props.count].audio
     );
     return (
       <MainDiv opac={this.props.opac}>
@@ -154,7 +154,6 @@ class FlipCards extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.flip.count);
   return {
     cart: state.flip.cartData,
     btn: state.train.btn,

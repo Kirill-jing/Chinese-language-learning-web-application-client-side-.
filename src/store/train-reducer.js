@@ -1,28 +1,27 @@
 import * as actiontype from "./actions/actions";
 
 const initialState = {
-    btn:'',
-    count:0,
-    arr:[],
-    cartData:[''],
-    answer:false,
-    anim:false,
-    disable:true,
-    br:'',
-    audcount:0,
-    audio:'',
-    audCheck:false,
-    inputVal:'',
-    name:'',
-    rightAnswers:0,
-    length:0,
-    sliderVal:[],
-    audio:'',
-    char:'',
-    limit:0,
-    history:'',
-    redirect:false
-
+  btn: "",
+  count: 0,
+  arr: [],
+  cartData: [""],
+  answer: false,
+  anim: false,
+  disable: true,
+  br: "",
+  audcount: 0,
+  audio: "",
+  audCheck: false,
+  inputVal: "",
+  name: "",
+  rightAnswers: 0,
+  length: 0,
+  sliderVal: [],
+  audio: "",
+  char: "",
+  limit: 0,
+  history: "",
+  redirect: false,
 };
 const trainreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -30,112 +29,107 @@ const trainreducer = (state = initialState, action) => {
       return {
         ...state,
         cartData: action.cart,
-        length:action.cart.length,
-        sliderVal:[0,action.cart.length],
-        arr:[1,1,0.66,1].sort((a,b)=>a-b),
-        audio:action.cart.length>0?action.cart[0].audio:' ',
-        char:action.cart.length>0?action.cart[0].name:' ',
-        history:action.history
+        length: action.cart.length,
+        sliderVal: [0, action.cart.length],
+        arr: [1, 1, 0.66, 1].sort((a, b) => a - b),
+        audio: action.cart.length > 0 ? action.cart[0].audio : " ",
+        char: action.cart.length > 0 ? action.cart[0].name : " ",
+        history: action.history,
       };
     case actiontype.HANDLE_SLIDER:
-
-      return{
-        sliderVal:action.e,
-        audcount:action.e[0],
-        arr:[1,0.66,1,1],
-        count:action.e[0],
-        limit:action.e[1]
-      }
+      return {
+        sliderVal: action.e,
+        audcount: action.e[0],
+        arr: [1, 0.66, 1, 1],
+        count: action.e[0],
+        limit: action.e[1],
+      };
     case actiontype.CHECK_ANSWER:
-      let q=state.cartData[state.count].nameTr===action.check
-      return{
+      let q = state.cartData[state.count].nameTr === action.check;
+      return {
         ...state,
-        answer:q,
-        anim:false,
-        name:state.cartData[state.count].nameTr,
-        disable:false
-      }
+        answer: q,
+        anim: false,
+        name: state.cartData[state.count].nameTr,
+        disable: false,
+      };
     case actiontype.NEXT_QUESTION:
-      let b = state.count+1
-      if(b===state.limit){
-        alert('Вы достигли устаноленного вами лимита :)')
+      let b = state.count + 1;
+      if (b === state.limit) {
+        alert("Вы достигли устаноленного вами лимита :)");
       }
-      if(b===state.cartData.length){
-        return{
-          ...state,
-          count:0,
-          audio:state.cartData[0],
-          disable:true,
-        }
-      }
-      let quesAnswer = state.answer===true ?
-        state.rightAnswers + 1 :
-        state.rightAnswers
-      return{
-        ...state,
-        count:b,
-        audio:state.cartData[b],
-        anim:true,
-        br:0.50*state.cartData.length,
-        arr:[
-          Math.random()*state.cartData.length,
-          Math.random()*state.cartData.length,
-          0.50*state.cartData.length,
-          Math.random()*state.cartData.length
-        ]
-          .sort((a,b)=>a-b),
-        name:'',
-        rightAnswers:quesAnswer,
-        disable:true,
-        
-        } 
-    case actiontype.ANIM_FALSE:
-      let c = state.count+1
-      if(c===state.cartData.length){
+      if (b === state.cartData.length) {
         return {
           ...state,
-          anim:false,
-          redirect:true,
-          disable:true
-       }
+          count: 0,
+          audio: state.cartData[0],
+          disable: true,
+        };
+      }
+      let quesAnswer =
+        state.answer === true ? state.rightAnswers + 1 : state.rightAnswers;
+      return {
+        ...state,
+        count: b,
+        audio: state.cartData[b],
+        anim: true,
+        br: 0.5 * state.cartData.length,
+        arr: [
+          Math.random() * state.cartData.length,
+          Math.random() * state.cartData.length,
+          0.5 * state.cartData.length,
+          Math.random() * state.cartData.length,
+        ].sort((a, b) => a - b),
+        name: "",
+        rightAnswers: quesAnswer,
+        disable: true,
+      };
+    case actiontype.ANIM_FALSE:
+      let c = state.count + 1;
+      if (c === state.cartData.length) {
+        return {
+          ...state,
+          anim: false,
+          redirect: true,
+          disable: true,
+        };
       }
       return {
         ...state,
-        anim:true,
-     }
+        anim: true,
+      };
     case actiontype.SET_AUDIO:
-      return{
+      return {
         ...state,
-        audio:state.cartData[state.audcount].audio
-      }
+        audio: state.cartData[state.audcount].audio,
+      };
     case actiontype.NEXT_AUDIO:
-      let a = state.audcount+1
-      return{
+      let a = state.audcount + 1;
+      return {
         ...state,
-        audcount:a,
-        audCheck:false ,
-        inputVal:''
-      }
+        audcount: a,
+        audCheck: false,
+        inputVal: "",
+      };
     case actiontype.CHECK_CHAR:
-      let audCheck=state
-        .cartData[state.audcount]
-        .name===action.val ? true : false
-      return{
+      let audCheck =
+        state.cartData[state.audcount].name === action.val ? true : false;
+      return {
         ...state,
-        audCheck:audCheck,
-        inputVal:action.val
-      }
+        audCheck: audCheck,
+        inputVal: action.val,
+      };
     case actiontype.GIVE_ANSWER:
-      return{
+      return {
         ...state,
-        inputVal:state.cartData[state.audcount].name,
-        audCheck:true
-      }
+        inputVal: state.cartData[state.audcount].name,
+        audCheck: true,
+      };
     case actiontype.SET_RED:
-      return{
+      return {
         ...state,
-        redirect:false
-      }
+        redirect: false,
+      };
   }
   return state;
 };

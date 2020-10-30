@@ -42,6 +42,12 @@ class App extends Component {
     if (this.props.redirect === true || this.props.redirectFlip === true) {
       red = <Redirect to="/train"></Redirect>;
       setTimeout(() => this.props.setRed(), 100);
+    } else if (
+      this.props.authRedirect === true ||
+      this.props.signRedirect === true
+    ) {
+      red = <Redirect to="/"></Redirect>;
+      setTimeout(() => this.props.setRed(), 100);
     }
     return (
       <CustomMain alt={this.props.sun}>
@@ -61,6 +67,7 @@ class App extends Component {
               <Route path="/dictionary" exact component={Dictionary}></Route>
               <Route path="/dictionary/3" exact component={Dictionary}></Route>
               <Route path="/char-word" exact component={CharWord}></Route>
+              <Route path="/word-char" exact component={CharWord}></Route>
               <Route path="/audio-char" exact component={AudioChar}></Route>
               <Route path="/train" exact component={Train}></Route>
               <Route path="/flip-cards" exact component={Flip}></Route>
@@ -73,7 +80,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.sign.isAuth);
   return {
     isAuth: state.sign.isAuth,
     token: state.sign.token,
@@ -81,6 +87,8 @@ const mapStateToProps = (state) => {
     sun: state.sign.sun,
     redirect: state.train.redirect,
     redirectFlip: state.flip.redirect,
+    authRedirect: state.log.loginRedirect,
+    signRedirect: state.sign.signRedirect,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -52,7 +52,8 @@ class Train extends Component {
           />
         </div>
         <div>
-          <Link to="/char-word">Перевод-иероглиф</Link>
+          <Link to="/char-word">иероглиф-Перевод</Link>
+          <Link to="/word-char">Перевод-иероглиф</Link>
           <Link to="/audio-char">Аудио-слово</Link>
           <Link to="/flip-cards">Карточки</Link>
         </div>

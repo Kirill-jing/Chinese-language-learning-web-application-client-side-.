@@ -50,24 +50,32 @@ const CustomInp = style.input`
 class CharWord extends Component {
   componentDidMount() {
     let history = this.props.history;
+    console.log(history);
     let tok = localStorage.getItem("token");
     this.props.onStoreCart(tok, history);
   }
 
   render() {
+    let numb = this.props.cart[this.props.count];
     return (
       <div>
         <AnimateDiv animate={this.props.anim}>
           <Ques>
-            {this.props.cart.length > 0
-              ? this.props.cart[this.props.count].name
-              : " "}
+            {this.props.myHistory.pathname === "/char-word"
+              ? this.props.cart.length > 0
+                ? numb.name
+                : " "
+              : this.props.myHistory.pathname === "/word-char"
+              ? this.props.cart.length > 0
+                ? numb.nameTr
+                : " "
+              : ""}
           </Ques>
           <Inputs>
             {this.props.arr.map((el, i) => {
               let check =
                 el == this.props.br && this.props.cart.length > 0
-                  ? this.props.cart[this.props.count].nameTr
+                  ? numb.nameTr
                   : " ";
               return (
                 <CustomInp
@@ -100,8 +108,9 @@ class CharWord extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.train.arr);
+  console.log(state.train.history);
   return {
+    myHistory: state.train.history,
     cart: state.cart.cartData,
     btn: state.train.btn,
     count: state.train.count,

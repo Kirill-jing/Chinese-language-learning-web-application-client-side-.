@@ -141,7 +141,7 @@ class Dictionary extends Component {
                     exampleTr={word.exampleTr}
                     examplePinin={word.examplePinin}
                     type={word.type}
-                    image={process.env.REACT_APP_URL + + word.image}
+                    image={process.env.REACT_APP_URL + word.image}
                     audio={process.env.REACT_APP_URL + word.audio}
                     details={this.props.details}
                     openModal={() => this.props.open(word._id)}

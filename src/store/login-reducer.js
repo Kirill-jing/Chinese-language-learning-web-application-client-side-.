@@ -6,6 +6,7 @@ const initialState = {
   isAuth: false,
   token: undefined,
   userId: undefined,
+  loginRedirect: false,
 };
 
 const loginreducer = (state = initialState, action) => {
@@ -26,6 +27,12 @@ const loginreducer = (state = initialState, action) => {
         isAuth: true,
         token: action.token,
         userId: action.userId,
+        loginRedirect: true,
+      };
+    case actiontype.SET_RED:
+      return {
+        ...state,
+        loginRedirect: false,
       };
   }
   return state;

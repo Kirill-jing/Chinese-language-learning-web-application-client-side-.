@@ -8,6 +8,7 @@ const initialState = {
   token: undefined,
   userId: undefined,
   sun: false,
+  signRedirect: false,
 };
 const signupreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -32,6 +33,7 @@ const signupreducer = (state = initialState, action) => {
         isAuth: true,
         token: action.token,
         userId: action.userId,
+        signRedirect: true,
       };
     case actiontype.CHECK_AUTH:
       return {
@@ -44,6 +46,11 @@ const signupreducer = (state = initialState, action) => {
       return {
         ...state,
         sun: action.sun,
+      };
+    case actiontype.SET_RED:
+      return {
+        ...state,
+        signRedirect: false,
       };
   }
   return state;
