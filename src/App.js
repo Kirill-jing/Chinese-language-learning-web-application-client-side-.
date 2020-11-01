@@ -1,19 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import SignUp from "./Containers/SignUp";
+// import SignUp from "./Containers/SignUp";
 import Admin from "./Containers/Admin";
-import Dictionary from "./Containers/Dictionary";
+// import Dictionary from "./Containers/Dictionary";
 import { connect } from "react-redux";
-import LogIn from "./Containers/LogIn";
-import Cart from "./Containers/Cart";
+// import LogIn from "./Containers/LogIn";
+// import Cart from "./Containers/Cart";
 import Main from "./Containers/Main";
 import * as actionCreators from "./store/actions/actions";
 import style from "styled-components";
 import NavLinks from "./shared/Nav";
-import CharWord from "./Containers/Char-word";
-import Train from "./Containers/Train";
-import AudioChar from "./Containers/Audio-char";
-import Flip from "./Containers/Flip-cards";
+import CircularProgress from "@material-ui/core/CircularProgress";
+// import CharWord from "./Containers/Char-word";
+// import Train from "./Containers/Train";
+// import AudioChar from "./Containers/Audio-char";
+// import Flip from "./Containers/Flip-cards";
 
 let CustomMain = style.main`
 background:${(props) => (props.alt ? "#0F0D28 " : "white ")};
@@ -22,6 +23,15 @@ color:${(props) => (props.alt ? "white" : "black")};
 width:100%;
 height:100%;
 `;
+
+const CharWord = React.lazy(() => import("./Containers/Char-word"));
+const SignUp = React.lazy(() => import("./Containers/SignUp"));
+const LogIn = React.lazy(() => import("./Containers/LogIn"));
+const Dictionary = React.lazy(() => import("./Containers/Dictionary"));
+const Cart = React.lazy(() => import("./Containers/Cart"));
+const Train = React.lazy(() => import("./Containers/Train"));
+const AudioChar = React.lazy(() => import("./Containers/Audio-char"));
+const Flip = React.lazy(() => import("./Containers/Flip-cards"));
 
 class App extends Component {
   componentDidMount() {
@@ -57,21 +67,27 @@ class App extends Component {
               isAuth={this.props.isAuth}
               theme={(sun) => this.props.theme(sun)}
             />
-            <Switch>
-              {red}
-              <Route path="/" exact component={Main}></Route>
-              <Route path="/admin" exact component={Admin}></Route>
-              <Route path="/signup" exact component={SignUp}></Route>
-              <Route path="/cart" exact component={Cart}></Route>
-              <Route path="/login" exact component={LogIn}></Route>
-              <Route path="/dictionary" exact component={Dictionary}></Route>
-              <Route path="/dictionary/3" exact component={Dictionary}></Route>
-              <Route path="/char-word" exact component={CharWord}></Route>
-              <Route path="/word-char" exact component={CharWord}></Route>
-              <Route path="/audio-char" exact component={AudioChar}></Route>
-              <Route path="/train" exact component={Train}></Route>
-              <Route path="/flip-cards" exact component={Flip}></Route>
-            </Switch>
+            <Suspense fallback={<CircularProgress />}>
+              <Switch>
+                {red}
+                <Route path="/" exact component={Main}></Route>
+                <Route path="/admin" exact component={Admin}></Route>
+                <Route path="/signup" exact component={SignUp}></Route>
+                <Route path="/cart" exact component={Cart}></Route>
+                <Route path="/login" exact component={LogIn}></Route>
+                <Route path="/dictionary" exact component={Dictionary}></Route>
+                <Route
+                  path="/dictionary/3"
+                  exact
+                  component={Dictionary}
+                ></Route>
+                <Route path="/char-word" exact component={CharWord}></Route>
+                <Route path="/word-char" exact component={CharWord}></Route>
+                <Route path="/audio-char" exact component={AudioChar}></Route>
+                <Route path="/train" exact component={Train}></Route>
+                <Route path="/flip-cards" exact component={Flip}></Route>
+              </Switch>
+            </Suspense>
           </div>
         </BrowserRouter>
       </CustomMain>

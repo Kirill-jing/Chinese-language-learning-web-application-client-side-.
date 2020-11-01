@@ -60,17 +60,7 @@ class CharWord extends Component {
     return (
       <div>
         <AnimateDiv animate={this.props.anim}>
-          <Ques>
-            {this.props.myHistory.pathname === "/char-word"
-              ? this.props.cart.length > 0
-                ? numb.name
-                : " "
-              : this.props.myHistory.pathname === "/word-char"
-              ? this.props.cart.length > 0
-                ? numb.nameTr
-                : " "
-              : ""}
-          </Ques>
+          <Ques>{this.props.cart.length > 0 ? numb.name : " "}</Ques>
           <Inputs>
             {this.props.arr.map((el, i) => {
               let check =

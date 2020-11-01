@@ -10,52 +10,66 @@ import { NavLink } from "react-router-dom";
 import * as actionCreators from "../store/actions/actions";
 import Button from "@material-ui/core/Button";
 
+const CustomDiv = style.div`
+  display:flex;
+  flex-direction:column;
+  width:200px;
+  justify-content:center;
+  margin:auto;
+`;
+
 class Admin extends Component {
   render() {
     return (
-      <div>
-        <form
-          onSubmit={(event) =>
-            this.props.onPostResult(
-              event,
-              this.props.name,
-              this.props.nameType,
-              this.props.nameTr,
-              this.props.pinin,
-              this.props.example,
-              this.props.exampleTr,
-              this.props.examplePinin,
-              this.props.type,
-              this.props.image,
-              this.props.audio
-            )
-          }
-        >
+      <form
+        onSubmit={(event) =>
+          this.props.onPostResult(
+            event,
+            this.props.name,
+            this.props.nameType,
+            this.props.nameTr,
+            this.props.pinin,
+            this.props.example,
+            this.props.exampleTr,
+            this.props.examplePinin,
+            this.props.type,
+            this.props.image,
+            this.props.audio
+          )
+        }
+      >
+        <CustomDiv>
+          <label>Иероглиф</label>
           <input
             type="text"
             value={this.props.name}
             onChange={(event) => this.props.nameHandler(event.target.value)}
           ></input>
+          <label>Часть речи</label>
           <input
             type="text"
             value={this.props.nameType}
             onChange={(event) => this.props.nameTypeHandler(event.target.value)}
           ></input>
+          <label>Перевод</label>
           <input
             type="text"
             value={this.props.nameTr}
             onChange={(event) => this.props.nameTrHandler(event.target.value)}
           ></input>
+          <label>пиньинь</label>
           <input
             type="text"
             value={this.props.pinin}
             onChange={(event) => this.props.pininHandler(event.target.value)}
           ></input>
+          <label>Пример</label>
           <input
             type="text"
             value={this.props.example}
             onChange={(event) => this.props.exampleHandler(event.target.value)}
           ></input>
+          <label>Перевод примера</label>
           <input
             type="text"
             value={this.props.exampleTr}
@@ -63,6 +77,7 @@ class Admin extends Component {
               this.props.exampleTrHandler(event.target.value)
             }
           ></input>
+          <label>Пинь инь примера</label>
           <input
             type="text"
             value={this.props.examplePinin}
@@ -70,6 +85,7 @@ class Admin extends Component {
               this.props.examplePininHandler(event.target.value)
             }
           ></input>
+          <label>HSK</label>
           <input
             type="text"
             value={this.props.type}
@@ -86,8 +102,8 @@ class Admin extends Component {
             onChange={(event) => this.props.audioHandler(event.target.files[0])}
           ></input>
           <button type="submit"></button>
-        </form>
-      </div>
+        </CustomDiv>
+      </form>
     );
   }
 }
