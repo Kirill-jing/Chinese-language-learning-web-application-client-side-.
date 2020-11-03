@@ -3,23 +3,19 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Word from "../Components/word";
 import WordDetails from "../Components/wordDetails";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import InputLabel from "@material-ui/core/InputLabel";
 import style from "styled-components";
 import { styled } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import Slider from "@material-ui/core/Slider";
 import * as actionCreators from "../store/actions/actions";
+
+const CustomSlider = styled(Slider)({
+  width: "400px",
+});
 
 const CustInput = styled(TextField)({
   borderBottom: "1px solid #e2e2e1",
@@ -82,7 +78,9 @@ const StyledDiv = style.div`
   width:20vw;
   height:15vh;
 `;
-
+const CustomLi = style.div`
+  width: 1500px,
+`;
 const CustBtn = styled(Button)({
   transition: "0.4s",
   opacity: (props) => (props.amount ? 1 : 0),
@@ -126,7 +124,7 @@ class Dictionary extends Component {
           <li>
             {this.props.hskdata.map((word) => {
               return (
-                <div>
+                <CustomLi>
                   <Word
                     key={word._id}
                     id={word._id}
@@ -150,7 +148,7 @@ class Dictionary extends Component {
                       this.props.addToLearn(word._id, this.props.token)
                     }
                   />
-                </div>
+                </CustomLi>
               );
             })}
           </li>
@@ -166,6 +164,29 @@ class Dictionary extends Component {
               HSK3
             </Link>
           </StyledDiv>
+          <CustomSlider
+            value={this.props.sliderVal}
+            min={0}
+            step={1}
+            onChange={this.props.handleChange}
+            max={this.props.hskdata.length}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+          />
+          <CustBtn
+            amount={this.props.limit > 0}
+            color="secondary"
+            variant="contained"
+            onClick={(e) =>
+              this.props.addSlider(
+                this.props.sliderVal,
+                this.props.hskdata,
+                this.props.token
+              )
+            }
+          >
+            Добавить
+          </CustBtn>
         </Links>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -200,10 +221,10 @@ class Dictionary extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.res.amount);
-  console.log(state.res.checkedArr);
-
+  console.log(state.res.sliderVal);
   return {
+    limit: state.res.limit,
+    sliderVal: state.res.sliderVal,
     stored: state.res.data,
     details: state.res.details,
     modalWord: state.res.modalWord,
@@ -217,6 +238,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    addSlider: (sliderArr, hskdada, token) =>
+      dispatch(actionCreators.addSliderData(sliderArr, hskdada, token)),
+    handleChange: (val, e) => dispatch({ type: "HANDLE_MAIN_SLIDER", e: e }),
     findWords: (val) => dispatch({ type: "FIND_WORDS", val: val }),
     findChar: (val) => dispatch({ type: "FIND_CHAR", val: val }),
     addMultiple: (checkedArr, token) =>

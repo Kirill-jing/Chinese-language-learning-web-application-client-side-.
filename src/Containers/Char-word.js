@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/actions";
 import style, { keyframes, css } from "styled-components";
-import HelpIcon from "@material-ui/icons/Help";
 import ForwardIcon from "@material-ui/icons/Forward";
 import Button from "@material-ui/core/Button";
 const moonHov = keyframes`
@@ -30,6 +29,8 @@ const AnimateDiv = style.div`
   background-color:blue;
   justify-content:center;
   align-items:center;
+  background-color:#7085C2;
+  border-radius:15px;
   flex-direction:column;
   opacity:1;
   animation-name:${(props) => (props.animate ? animation : " ")};
@@ -39,13 +40,13 @@ const AnimateDiv = style.div`
 const Ques = style.div`
 `;
 const Inputs = style.div`
-
   width:150px;
 `;
 const CustomInp = style.input`
+  cursor:pointer;
+  border-width:0px;
   width:150px;
-  background-color:${(props) =>
-    props.value === props.name ? "green" : "white"}
+  background-color:${(props) => (props.value === props.name ? "red" : "white")}
 `;
 class CharWord extends Component {
   componentDidMount() {
@@ -63,6 +64,7 @@ class CharWord extends Component {
           <Ques>{this.props.cart.length > 0 ? numb.name : " "}</Ques>
           <Inputs>
             {this.props.arr.map((el, i) => {
+              console.log(el, this.props.br);
               let check =
                 el == this.props.br && this.props.cart.length > 0
                   ? numb.nameTr
@@ -98,7 +100,6 @@ class CharWord extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.train.history);
   return {
     myHistory: state.train.history,
     cart: state.cart.cartData,

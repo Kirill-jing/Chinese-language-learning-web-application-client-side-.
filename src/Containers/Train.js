@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/actions";
-import style, { keyframes, css } from "styled-components";
-import { NavLink, BrowserRouter, Route } from "react-router-dom";
-import CharWord from "./Char-word";
+import style from "styled-components";
+import { NavLink } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { styled } from "@material-ui/core/styles";
@@ -20,12 +19,26 @@ const CustomDiv = style.div`
   justify-content:center;
   align-items:center;
 `;
+const LinksDiv = style.div`
+  width:30vw;
+  height:20vh;
+`;
 const Link = style(NavLink)`
-  font-size:18px;
-  color: red;
+  margin-top:10px;
+  display:flex;
+  font-size:28px;
+  align-items:center;
+  justify-content:center;
+  color: black;
+  position:relative;
+  width:100%;
+  height:100%;
+  border-radius:15px;
+  border:2px solid black;
   text-decoration: none;
-  &.active {
-    color: black;
+  &:hover{
+    color: red;
+    border:3px solid red;
   };
 `;
 
@@ -51,12 +64,11 @@ class Train extends Component {
             aria-labelledby="range-slider"
           />
         </div>
-        <div>
-          <Link to="/char-word">иероглиф-Перевод</Link>
+        <LinksDiv>
           <Link to="/word-char">Перевод-иероглиф</Link>
           <Link to="/audio-char">Аудио-слово</Link>
           <Link to="/flip-cards">Карточки</Link>
-        </div>
+        </LinksDiv>
       </CustomDiv>
     );
   }

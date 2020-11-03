@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/actions";
+import Button from "@material-ui/core/Button";
 
 class LogIn extends Component {
   render() {
@@ -18,14 +19,13 @@ class LogIn extends Component {
             this.props.logPasswordHandler(event.target.value)
           }
         ></input>
-        <button type="submit"></button>
+        <Button type="submit"></Button>
       </form>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.sign.userId);
   return {
     logName: state.log.logName,
     logPassword: state.log.logPassword,

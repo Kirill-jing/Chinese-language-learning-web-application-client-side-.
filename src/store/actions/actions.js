@@ -27,27 +27,28 @@ export const REMOVE_CHECK = "REMOVE_CHECK";
 export const CHANGE_THEME = "CHANGE_THEME";
 export const DELETE_CART = "DELETE_CART";
 export const ADD_DEFAULT = "ADD_DEFAULT";
-export const INST_DELETE="INST_DELETE"
-export const FIND_WORDS="FIND_WORDS"
-export const FIND_CHAR = "FIND_CHAR"
-export const CHECK_ANSWER="CHECK_ANSWER"
-export const NEXT_QUESTION="NEXT_QUESTION"
-export const ANIM_FALSE = "ANIM_FALSE"
-export const ADD_CART_CHECK="ADD_CART_CHECK"
-export const FILTER_MULTIPLE="FILTER_MULTIPLE"
-export const SET_AUDIO="SET_AUDIO"
-export const SET_PARAMS="SET_PARAMS"
-export const NEXT_AUDIO="NEXT_AUDIO"
-export const CHECK_CHAR="CHECK_CHAR"
-export const GIVE_ANSWER="GIVE_ANSWER"
-export const HANDLE_SLIDER = "HANDLE_SLIDER"
-export const SET_RED="SET_RED"
-export const FLIP_BTN="FLIP_BTN"
-export const CHANGE_INNER="CHANGE_INNER"
-export const NEXT_FLIP="NEXT_FLIP"
-export const ANIM_OPAC="ANIM_OPAC"
-export const CHANGE_DIR="CHANGE_DIR"
-export const CHECK_AMOUNT="CHECK_AMOUNT"
+export const INST_DELETE = "INST_DELETE";
+export const FIND_WORDS = "FIND_WORDS";
+export const FIND_CHAR = "FIND_CHAR";
+export const CHECK_ANSWER = "CHECK_ANSWER";
+export const NEXT_QUESTION = "NEXT_QUESTION";
+export const ANIM_FALSE = "ANIM_FALSE";
+export const ADD_CART_CHECK = "ADD_CART_CHECK";
+export const FILTER_MULTIPLE = "FILTER_MULTIPLE";
+export const SET_AUDIO = "SET_AUDIO";
+export const SET_PARAMS = "SET_PARAMS";
+export const NEXT_AUDIO = "NEXT_AUDIO";
+export const CHECK_CHAR = "CHECK_CHAR";
+export const GIVE_ANSWER = "GIVE_ANSWER";
+export const HANDLE_SLIDER = "HANDLE_SLIDER";
+export const HANDLE_MAIN_SLIDER = "HANDLE_MAIN_SLIDER";
+export const SET_RED = "SET_RED";
+export const FLIP_BTN = "FLIP_BTN";
+export const CHANGE_INNER = "CHANGE_INNER";
+export const NEXT_FLIP = "NEXT_FLIP";
+export const ANIM_OPAC = "ANIM_OPAC";
+export const CHANGE_DIR = "CHANGE_DIR";
+export const CHECK_AMOUNT = "CHECK_AMOUNT";
 
 export const postResult = (
   e,
@@ -95,11 +96,11 @@ export const saveAuth = (token, userId) => {
   };
 };
 
-export const saveMyWords = (cart,history) => {
+export const saveMyWords = (cart, history) => {
   return {
     type: STORE_CART,
     cart: cart,
-    history:history
+    history: history,
   };
 };
 
@@ -110,13 +111,12 @@ export const filterWord = (cartData) => {
   };
 };
 
-export const filterMultiple=(newArr)=>{
-  return{
-    type:FILTER_MULTIPLE,
-    newArr:newArr
-  }
-}
-
+export const filterMultiple = (newArr) => {
+  return {
+    type: FILTER_MULTIPLE,
+    newArr: newArr,
+  };
+};
 
 export const saveWords = () => {
   return (dispatch) => {
@@ -153,7 +153,7 @@ export const signup = (e, username, email, password) => {
       const remainingMilliseconds = 600 * 60 * 1000;
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
       localStorage.setItem("expiryDate", expiryDate.toISOString());
-      dispatch(saveAuth(res.data.token, res.data.userId , expiryDate));
+      dispatch(saveAuth(res.data.token, res.data.userId, expiryDate));
     });
   };
 };
@@ -176,7 +176,7 @@ export const login = (e, logName, logPassword) => {
   };
 };
 
-export const saveCart = (token,history) => {
+export const saveCart = (token, history) => {
   return (dispatch) => {
     axios
       .get(process.env.REACT_APP_URL + "admin/get-cart", {
@@ -184,7 +184,7 @@ export const saveCart = (token,history) => {
           Authorization: "bearer " + token,
         },
       })
-      .then((cart) => dispatch(saveMyWords(cart.data.cart,history)));
+      .then((cart) => dispatch(saveMyWords(cart.data.cart, history)));
   };
 };
 
@@ -202,7 +202,7 @@ export const addToCart = (checkedArr, token) => {
 };
 
 export const deleteCart = (cartData, token, id) => {
-   let newData=cartData.filter(el=>el._id!=id)
+  let newData = cartData.filter((el) => el._id != id);
   let data = null;
   return (dispatch) => {
     axios
@@ -210,23 +210,44 @@ export const deleteCart = (cartData, token, id) => {
         headers: {
           Authorization: "bearer " + token,
         },
-      }).then(res=>dispatch(filterWord(newData)))
+      })
+      .then((res) => dispatch(filterWord(newData)));
   };
 };
 
-export const removeMultiple=(cartData,removeArr,token)=>{
-  let newArr=cartData.filter(el=>{
-      return removeArr.every(elem=>elem!==el._id)
-  })
-  console.log(newArr)
+export const removeMultiple = (cartData, removeArr, token) => {
+  let newArr = cartData.filter((el) => {
+    return removeArr.every((elem) => elem !== el._id);
+  });
+  console.log(newArr);
   let data = {
-      removeArr:removeArr
-    }
-  return dispatch=>{
-    axios.post(process.env.REACT_APP_URL + 'admin/delete-multwords',data,{
+    removeArr: removeArr,
+  };
+  return (dispatch) => {
+    axios
+      .post(process.env.REACT_APP_URL + "admin/delete-multwords", data, {
+        headers: {
+          Authorization: "bearer " + token,
+        },
+      })
+      .then((res) => dispatch(filterMultiple(newArr)));
+  };
+};
+
+export const addSliderData = (sliderArr, hskdata, token) => {
+  let dbArr = [];
+  console.log("fff");
+  for (let i = sliderArr[0]; i < sliderArr[1]; i++) {
+    dbArr.push(hskdata[i]._id);
+  }
+  let data = {
+    dbArr: dbArr,
+  };
+  return (dispatch) => {
+    axios.post(process.env.REACT_APP_URL + "admin/slider-data", data, {
       headers: {
         Authorization: "bearer " + token,
       },
-    }).then(res=>dispatch(filterMultiple(newArr)))
-  }
-}
+    });
+  };
+};

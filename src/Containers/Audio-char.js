@@ -98,6 +98,7 @@ class AudioChar extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.train.audcount);
   return {
     cart: state.cart.cartData,
     count: state.train.audcount,

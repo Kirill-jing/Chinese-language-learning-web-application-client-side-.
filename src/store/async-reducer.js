@@ -1,16 +1,17 @@
-import { TramRounded } from "@material-ui/icons";
 import * as actiontype from "./actions/actions";
 const initialState = {
   data: [],
   details: false,
   modalWord: {},
   hskdata: [],
-  regData:[],
+  regData: [],
   checkedVal: false,
   checkedArr: [],
-  example:0,
-  animbut:false,
-  amount:0
+  example: 0,
+  animbut: false,
+  amount: 0,
+  sliderVal: [0, 0],
+  limit: 0,
 };
 const asyncreducer = (state = initialState, action) => {
   switch (action.type) {
@@ -21,47 +22,48 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.words,
-        hskdata:hsk,
-        regData:hsk
+        hskdata: hsk,
+        regData: hsk,
       };
-    // case actiontype.CHECK_AMOUNT:
-    //   return{
-    //     ...state,
-    //     amount:state.checkedArr.length
-    //   }
-    case actiontype.FIND_WORDS:
-      let arr=[...state.regData]
-      let quesWords=arr.filter(el=>el.nameTr.match(action.val))
-      return{
+    case actiontype.HANDLE_MAIN_SLIDER:
+      return {
         ...state,
-        hskdata:quesWords
-      }
+        sliderVal: action.e,
+        start: action.e[0],
+        limit: action.e[1],
+      };
+    case actiontype.FIND_WORDS:
+      let arr = [...state.regData];
+      let quesWords = arr.filter((el) => el.nameTr.match(action.val));
+      return {
+        ...state,
+        hskdata: quesWords,
+      };
     case actiontype.FIND_CHAR:
-        let chararr=[...state.regData]
-        let quesChar=chararr.filter(el=>el.name.match(action.val))
-        return{
-          ...state,
-          hskdata:quesChar
-        }
+      let chararr = [...state.regData];
+      let quesChar = chararr.filter((el) => el.name.match(action.val));
+      return {
+        ...state,
+        hskdata: quesChar,
+      };
     case actiontype.ADD_CHECK:
       let newArr = state.checkedArr;
       newArr.push(action.value);
-      let newAm=state.amount+1
+      let newAm = state.amount + 1;
       if (action.check === true) {
         return {
           ...state,
           checkedArr: newArr,
-          animbut:true,
-          amount:newAm
-
+          animbut: true,
+          amount: newAm,
         };
       }
       let jArr = state.checkedArr.filter((el) => el != action.value);
-      let oldAm=state.amount-1
+      let oldAm = state.amount - 1;
       return {
         ...state,
         checkedArr: jArr,
-        amount:oldAm
+        amount: oldAm,
       };
 
     case actiontype.OPEN:
@@ -85,7 +87,8 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         hskdata: hsk4,
-        regData:hsk4
+        regData: hsk4,
+        sliderVal: [0, 0],
       };
     case actiontype.HSK_3:
       let hsk3 = state.data.filter((el) => {
@@ -94,7 +97,8 @@ const asyncreducer = (state = initialState, action) => {
       return {
         ...state,
         hskdata: hsk3,
-        regData:hsk3
+        regData: hsk3,
+        sliderVal: [0, 0],
       };
   }
   return state;

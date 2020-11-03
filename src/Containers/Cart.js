@@ -19,7 +19,8 @@ import * as actionCreators from "../store/actions/actions";
 import { SignalCellularNullSharp } from "@material-ui/icons";
 
 const Ul = style.ul`
-
+margin:auto;
+width:1000px;
 list-style-type:none;
 `;
 const Link = style(NavLink)`
@@ -86,29 +87,7 @@ class Cart extends Component {
           </Ul>
         ) : null}
 
-        <div>
-          <StyledDiv>
-            <Link onClick={this.props.hsk4} to="/dictionary" exact>
-              HSK4
-            </Link>
-          </StyledDiv>
-          <StyledDiv>
-            <Link onClick={this.props.hsk3} to="/dictionary/3" exact>
-              HSK3
-            </Link>
-            <button
-              onClick={() =>
-                this.props.removeMultiple(
-                  this.props.cartData,
-                  this.props.checkedArr,
-                  this.props.token
-                )
-              }
-            >
-              Remove Mult
-            </button>
-          </StyledDiv>
-        </div>
+        <div></div>
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"

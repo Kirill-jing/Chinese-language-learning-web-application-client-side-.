@@ -31,7 +31,7 @@ const trainreducer = (state = initialState, action) => {
         cartData: action.cart,
         length: action.cart.length,
         sliderVal: [0, action.cart.length],
-        arr: [1, 1, 0.66, 1].sort((a, b) => a - b),
+        arr: [2, 4, 0.66, 3].sort((a, b) => a - b),
         audio: action.cart.length > 0 ? action.cart[0].audio : " ",
         char: action.cart.length > 0 ? action.cart[0].name : " ",
         history: action.history,
@@ -104,10 +104,12 @@ const trainreducer = (state = initialState, action) => {
         audio: state.cartData[state.audcount].audio,
       };
     case actiontype.NEXT_AUDIO:
+      console.log(state.audio);
       let a = state.audcount + 1;
       return {
         ...state,
         audcount: a,
+        audio: state.cartData[a].audio,
         audCheck: false,
         inputVal: "",
       };

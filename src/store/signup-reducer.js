@@ -9,24 +9,57 @@ const initialState = {
   userId: undefined,
   sun: false,
   signRedirect: false,
+  nameCheck: false,
+  emailCheck: false,
+  passwordCheck: false,
 };
 const signupreducer = (state = initialState, action) => {
   switch (action.type) {
     case actiontype.USER_NAME:
-      return {
-        ...state,
-        username: action.username,
-      };
+      if (!action.username.match(/^[a-zа-я]{5,20}$/gi)) {
+        return {
+          ...state,
+          nameCheck: false,
+          username: action.username,
+        };
+      } else {
+        return {
+          ...state,
+          nameCheck: true,
+          username: action.username,
+        };
+      }
+
     case actiontype.EMAIL:
-      return {
-        ...state,
-        email: action.email,
-      };
+      if (
+        !action.email.match(/^([a-z0-9]+\.?)+@{1}(gmail.|mail.)(com|ru)$/gi)
+      ) {
+        return {
+          ...state,
+          emailCheck: false,
+          email: action.email,
+        };
+      } else {
+        return {
+          ...state,
+          emailCheck: true,
+          email: action.email,
+        };
+      }
     case actiontype.PASSWORD:
-      return {
-        ...state,
-        password: action.password,
-      };
+      if (!action.password.match(/^\w{10,25}$/gi)) {
+        return {
+          ...state,
+          passwordCheck: false,
+          password: action.password,
+        };
+      } else {
+        return {
+          ...state,
+          passwordCheck: true,
+          password: action.password,
+        };
+      }
     case actiontype.AUTH:
       return {
         ...state,

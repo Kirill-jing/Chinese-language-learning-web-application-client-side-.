@@ -20,7 +20,9 @@ align-items:center;
 `;
 
 const Translation = style.div`
-margin-right:120px
+width:400px;
+white-space:nowrap;
+text-align:center;
 `;
 const CustFlex = style.div`
 margin-top:10px;
@@ -28,13 +30,14 @@ display:flex;
 flex-direction:row;
 align-items:center;
 font-size:22px;
-justify-content:center;
+justify-content:space-between;
 `;
 const WordPin = style.div`
+width:100px;
 text-align:center;
 dispaly:flex;
 flex-direction:column;
-margin:0 150px 0 10px;
+
 `;
 const CustomIcon = styled(VolumeUpIcon)({
   color: "#8987A0",
